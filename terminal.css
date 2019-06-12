@@ -1,0 +1,116 @@
+body {
+    background-color: black;
+    padding-left: 3rem;
+    /*max-width: 60rem;*/
+}
+.text-section {
+    /*color: white;*/
+    color: lightgray;
+    line-height: 1.5rem;
+    /*font-weight: bold;*/
+    font-family: "Courier New";
+    font-size: 20px;
+    padding-left: 23rem;
+}
+.textdoc {
+    color: white;
+    margin-left: 2rem;
+}
+.navbutton button {
+    background-color: black;
+    color: lightgray;
+    width: 20rem;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 0.5rem;
+    text-align-last: center;
+    outline: none;
+
+}
+.navbutton button:hover {
+    background-color: lightgray;
+    color: black;
+}
+.innernavbutton button {
+    background-color: black;
+    color: lightgray;
+    width: 18rem;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-top: 10px;
+    margin-left: 2rem;
+    text-align-last: center;
+    outline: none;
+}
+.innernavbutton button:hover {
+    background-color: lightgray;
+    color: black;
+}
+.innerinnernavbutton button {
+    background-color: black;
+    color: lightgray;
+    width: 16rem;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-top: 10px;
+    margin-left: 4rem;
+    text-align-last: center;
+    outline: none;
+}
+.innerinnernavbutton button:hover {
+    background-color: lightgray;
+    color: black;
+}
+.employment-children {
+    display: none;
+}
+.courseassistant-children {
+    display: none;
+}
+.education-children {
+    display: none;
+}
+.skills-children {
+    display: none;
+}
+.contact-children {
+    display: none;
+}
+#main-entry {
+    background-color: black;
+    border: none;
+    padding: 0;
+    /* padding-left: 23rem; */
+    margin: 0;
+    width: 80%;
+    /* padding-top: -0.3rem; */
+}
+#prompt {
+    padding-top: 0;
+}
+#hist {
+    padding-bottom: 0.3rem;
+    padding-top: 3rem;
+    /* padding-left: 23rem; */
+}
+/* #outer-layout {
+    display: flex;
+}*/
+#propic {
+    max-width: 20rem;
+    max-height: auto;
+}
+#sidebar {
+    padding-right: 3rem;
+    padding-top: 3rem;
+    position: fixed;
+}
+#imglink {
+    color: black;
+}
