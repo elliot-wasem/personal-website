@@ -114,3 +114,7 @@ body {
 #imglink {
     color: black;
 }
+#basicinfo {
+    color: lightgray;
+    font-family: "Courier New";
+}
