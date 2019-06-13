@@ -219,12 +219,12 @@ function get_entry() {
     } else {
         prompt_elem.innerHTML = "[" + user_host + " ~" + currentDir.getParentsString() + "]<br/>$  ";
     }
-    // gets the contents of the text entry
-    var entry_content = entry_elem.value;
+    // gets the contents of the text entry. The part in replace just removes html tags
+    var entry_content = entry_elem.value.replace(/(<([^>]+)>)/ig,"");
     // appends the prompt and input entry to the history
     document.getElementById("hist").innerHTML += "<br/><br/>" + prompt_elem.innerHTML
         + entry_content
-        + handle_input(entry_elem.value);
+        + handle_input(entry_content);
     entry_elem.value = "";
     // scroll back to bottom
     self.scrollTo(0, document.body.scrollHeight);
@@ -274,7 +274,7 @@ function handle_input(input) {
             break;
         case "cat":
             output = handle_cat(input_toks.slice(1));
-           break;
+            break;
         default:
             if (cmd != undefined){
                 output = "<br/>command '" + cmd + "' not found!";
@@ -317,7 +317,7 @@ function handle_cat(args) {
     }
 }
 
-var user_host = "guest@elliotwasem";
+var user_host = "guest@elliot-wasem";
 document.getElementById("prompt").innerHTML = "[" + user_host + " ~/]<br/>$  ";
 var currentDir = new Directory(null, "root");
 

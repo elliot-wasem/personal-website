@@ -8,8 +8,8 @@ body {
     color: lightgray;
     line-height: 1.5rem;
     /*font-weight: bold;*/
-    font-family: "Courier New";
-    font-size: 20px;
+    font-family: "Inconsolata";
+    font-size: 1.2rem;
     padding-left: 23rem;
 }
 .textdoc {
@@ -17,6 +17,7 @@ body {
     margin-left: 2rem;
 }
 .navbutton button {
+    font-weight: bold;
     background-color: black;
     color: lightgray;
     width: 20rem;
@@ -34,6 +35,7 @@ body {
     color: black;
 }
 .innernavbutton button {
+    font-weight: bold;
     background-color: black;
     color: lightgray;
     width: 18rem;
@@ -51,6 +53,7 @@ body {
     color: black;
 }
 .innerinnernavbutton button {
+    font-weight: bold;
     background-color: black;
     color: lightgray;
     width: 16rem;
@@ -86,10 +89,9 @@ body {
     background-color: black;
     border: none;
     padding: 0;
-    /* padding-left: 23rem; */
     margin: 0;
     width: 80%;
-    /* padding-top: -0.3rem; */
+    outline: none;
 }
 #prompt {
     padding-top: 0;
@@ -97,18 +99,15 @@ body {
 #hist {
     padding-bottom: 0.3rem;
     padding-top: 3rem;
-    /* padding-left: 23rem; */
 }
-/* #outer-layout {
-    display: flex;
-}*/
 #propic {
-    max-width: 20rem;
-    max-height: auto;
+    max-width: 10rem;
+    border-radius: 50%;
+    margin-left: 5rem;
 }
 #sidebar {
     padding-right: 3rem;
-    padding-top: 3rem;
+    padding-top: 1rem;
     position: fixed;
 }
 #imglink {
@@ -116,5 +115,5 @@ body {
 }
 #basicinfo {
     color: lightgray;
-    font-family: "Courier New";
+    font-family: "Inconsolata";
 }
