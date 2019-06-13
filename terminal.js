@@ -281,12 +281,53 @@ function handle_input(input) {
             }
             break;
     }
+    // update sidebar
+    collapseAll();
+    switch(currentDir.name) {
+    case "Employment":
+        var showelems = document.querySelectorAll('.employment-children');
+        for (var i = 0; i < showelems.length; i++) {
+            showelems[i].style.display = "block";
+        }
+        break;
+    case "CourseAssistantships":
+        var showelems = document.querySelectorAll('.employment-children');
+        for (var i = 0; i < showelems.length; i++) {
+            showelems[i].style.display = "block";
+        }
+        showelems = document.querySelectorAll('.courseassistant-children');
+        for (var i = 0; i < showelems.length; i++) {
+            showelems[i].style.display = "block";
+        }
+        break;
+    case "Education":
+        showelems = document.querySelectorAll('.education-children');
+        for (var i = 0; i < showelems.length; i++) {
+            showelems[i].style.display = "block";
+        }
+        break;
+    case "Skills":
+        showelems = document.querySelectorAll('.skills-children');
+        for (var i = 0; i < showelems.length; i++) {
+            showelems[i].style.display = "block";
+        }
+        break;
+    case "Contact":
+        showelems = document.querySelectorAll('.contact-children');
+        for (var i = 0; i < showelems.length; i++) {
+            showelems[i].style.display = "block";
+        }
+        break;
+    default:
+        break;
+
+    }
     return output;
 }
 
 function handle_cd(args) {
     var ret_val = "";
-    currentDir.printChildrenDebug();
+    //currentDir.printChildrenDebug();
     if (args.length != 1) {
         ret_val = "<br/>cd: Bad argument number.";
     } else if (args[0] === "..") {

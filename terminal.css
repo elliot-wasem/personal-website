@@ -1,13 +1,10 @@
 body {
     background-color: black;
     padding-left: 3rem;
-    /*max-width: 60rem;*/
 }
 .text-section {
-    /*color: white;*/
     color: lightgray;
     line-height: 1.5rem;
-    /*font-weight: bold;*/
     font-family: "Inconsolata";
     font-size: 1.2rem;
     padding-left: 23rem;
