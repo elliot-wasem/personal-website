@@ -1,3 +1,7 @@
+button {
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+}
 body {
     background-color: black;
     padding-left: 3rem;
