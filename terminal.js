@@ -221,11 +221,24 @@ function get_entry() {
     }
     // gets the contents of the text entry. The part in replace just removes html tags
     var entry_content = entry_elem.value.replace(/(<([^>]+)>)/ig,"");
+
+    // this is annoyingly needed to make 'help' line up properly in the history
+    var breaks = "<br/><br/>";
+    console.log(last_cmd);
+    if (last_cmd === "help") {
+        console.log("good");
+        breaks = "<br/>";
+    }
+
     // appends the prompt and input entry to the history
-    document.getElementById("hist").innerHTML += "<br/><br/>" + prompt_elem.innerHTML
+    document.getElementById("hist").innerHTML += breaks + prompt_elem.innerHTML
         + entry_content
         + handle_input(entry_content);
+    last_cmd = entry_content;
     entry_elem.value = "";
+    if (entry_content === "clear") {
+        document.getElementById("hist").innerHTML = "Start typing...";
+    }
     // scroll back to bottom
     self.scrollTo(0, document.body.scrollHeight);
     return;
@@ -255,6 +268,11 @@ function handle_input(input) {
                            <td>change directory to target dir</td>\
                         </tr>\
                         <tr>\
+                           <td>clear</td>\
+                           <td>&nbsp→&nbsp</td>\
+                           <td>clear terminal</td>\
+                        </tr>\
+                        <tr>\
                            <td>help</td>\
                            <td>&nbsp→&nbsp</td>\
                            <td>display this dialog again</td>\
@@ -274,6 +292,8 @@ function handle_input(input) {
             break;
         case "cat":
             output = handle_cat(input_toks.slice(1));
+            break;
+        case "clear":
             break;
         default:
             if (cmd != undefined){
@@ -361,6 +381,8 @@ function handle_cat(args) {
 var user_host = "guest@elliot-wasem";
 document.getElementById("prompt").innerHTML = "[" + user_host + " ~/]<br/>$  ";
 var currentDir = new Directory(null, "root");
+
+var last_cmd = "";
 
 var employment = new Directory(currentDir, "Employment");
 
@@ -602,7 +624,7 @@ if (main_input.addEventListener) {
 }
 
 function matchCommand(cmd) {
-    var cmdlist = [ "cat ", "cd ", "help ", "ls "];
+    var cmdlist = [ "cat ", "cd ", "clear ", "help ", "ls " ];
     var len = cmdlist.length;
     var count_match = 0;
     var match = "";
