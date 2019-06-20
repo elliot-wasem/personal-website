@@ -1,6 +1,6 @@
 button {
     -webkit-transition-duration: 0.2s; /* Safari */
-    transition-duration: 0.2s;
+    transition-duration: 0.1s;
 }
 body {
     background-color: black;
