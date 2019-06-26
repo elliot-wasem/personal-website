@@ -6,6 +6,9 @@ body {
     background-color: black;
     padding-left: 3rem;
 }
+a {
+    color: white;
+}
 .text-section {
     color: lightgray;
     line-height: 1.5rem;
