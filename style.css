@@ -89,6 +89,10 @@ a {
 .contact-children {
     display: none;
 }
+.path {
+    color: #24a0ff;
+    filter: contrast(.75);
+}
 #main-entry {
     background-color: black;
     border: none;

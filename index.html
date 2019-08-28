@@ -19,6 +19,7 @@
             <div class='innernavbutton employment-children' onclick="clickJob('ResearchAssistant.txt')"><button>Research Assistant</button></div>
             <div class='innernavbutton employment-children' onclick="clickCourseAssistant()"><button>Course Assistantships</button></div>
                 <div class='innerinnernavbutton courseassistant-children' onclick="clickAssistantJob('Algorithms.txt')"><button>Algorithms</button></div>
+                <div class='innerinnernavbutton courseassistant-children' onclick="clickAssistantJob('ConcurrentProgramming.txt')"><button>Concurrent Programming</button></div>
                 <div class='innerinnernavbutton courseassistant-children' onclick="clickAssistantJob('DatabaseManagement.txt')"><button>Database Management Systems</button></div>
                 <div class='innerinnernavbutton courseassistant-children'><button onclick="clickAssistantJob('IntroToWeb.txt')">Intro to Web Development</button></div>
             <div class='innernavbutton employment-children' onclick="clickJob('MarketSource.txt')"><button>MarketSource</button></div>
@@ -40,7 +41,7 @@
     <!--  Main "terminal", anything in here will be in the terminal  -->
     <div class='text-section'>
         <form onsubmit="get_entry(); return false" action="">
-            <p id="hist">Start typing...</p>
+            <p id="hist">Start typing... Confused? Type 'help'.</p>
             <span id="prompt">~/ $  </span><input type="text" id='main-entry' class='text-section' autocomplete="off">
         </form>
     </div>

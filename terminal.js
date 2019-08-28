@@ -215,9 +215,9 @@ function get_entry() {
     var prompt_elem = document.getElementById("prompt");
     // updates prompt
     if (currentDir.name == "root") {
-        prompt_elem.innerHTML = "[" + user_host + " ~/]<br/>$  ";
+        prompt_elem.innerHTML = "[" + user_host + " <span class='path'>~/</span>]<br/>$  ";
     } else {
-        prompt_elem.innerHTML = "[" + user_host + " ~" + currentDir.getParentsString() + "]<br/>$  ";
+        prompt_elem.innerHTML = "[" + user_host + " <span class='path'>~" + currentDir.getParentsString() + "</span>]<br/>$  ";
     }
     // gets the contents of the text entry. The part in replace just removes html tags
     var entry_content = entry_elem.value.replace(/(<([^>]+)>)/ig,"");
@@ -363,7 +363,7 @@ function handle_cd(args) {
     } else {
         ret_val = "<br/>cd: directory '" + args[0] + "' not found!";
     }
-    document.getElementById("prompt").innerHTML = "[" + user_host + " ~" + (currentDir.name === "root" ? "/" : currentDir.getParentsString()) + "]<br/>$  ";
+    document.getElementById("prompt").innerHTML = "[" + user_host + " <span class='path'>~" + (currentDir.name === "root" ? "/" : currentDir.getParentsString()) + "</span>]<br/>$  ";
     return ret_val;
 }
 function handle_cat(args) {
@@ -378,8 +378,8 @@ function handle_cat(args) {
     }
 }
 
-var user_host = "guest@elliot-wasem";
-document.getElementById("prompt").innerHTML = "[" + user_host + " ~/]<br/>$  ";
+var user_host = "<span class='path'>guest@elliot-wasem</span>";
+document.getElementById("prompt").innerHTML = "[" + user_host + " <span class='path'>~/</span>]<br/>$  ";
 var currentDir = new Directory(null, "root");
 
 var last_cmd = "";
@@ -445,7 +445,7 @@ databaseManagementSystems.contents = "<div class=\"textdoc\">\
 <br />\
 Hoboken, NJ\
 <br />\
-August 2018 to December 2018\
+August 2018 to December 2018,</br>August 2019 to December 2019\
 <br />\
 <br />\
 Course assistant under Dr. Hui Wang\
@@ -453,6 +453,24 @@ Course assistant under Dr. Hui Wang\
 <li>Instruct students in the fundamentals of database design and implementation</li>\
 <li>Grade students' assignments</li>\
 <li>Led in-class lab sessions to help students understand the technical implementations of designing and querying a database</li>\
+</ul></div>";
+
+var concurrent = new File("ConcurrentProgramming.txt")
+concurrent.contents = "<div class=\"textdoc\">\
+<br />\
+<strong>Course Assistant for Concurrent Programming</strong>\
+<br />\
+Hoboken, NJ\
+<br />\
+August 2019 to December 2019\
+<br />\
+<br />\
+Course assistant under Dr. Eduardo Bonelli\
+<ul>\
+<li>Designed assignments for students to teach them the topics of message passing and concurrent programming</li>\
+<li>Instruct students in fundamental topics surrounding concurrent programming, model checking, and message passing</li>\
+<li>Grade students' assignments</li>\
+<li>Held office hours for students who needed further clarification on the topics</li>\
 </ul></div>";
 
 var algorithms = new File("Algorithms.txt");
@@ -473,6 +491,7 @@ Course Assistant under Dr. Iraklis Tsekourakis\
 </ul></div>";
 
 courseassistant.addFile(algorithms);
+courseassistant.addFile(concurrent);
 courseassistant.addFile(databaseManagementSystems);
 courseassistant.addFile(introToWebProgramming);
 
@@ -637,9 +656,9 @@ function matchCommand(cmd) {
     var entry_elem = document.getElementById("main-entry");
     var prompt_elem = document.getElementById("prompt");
     if (currentDir.name == "root") {
-        prompt_elem.innerHTML = "[" + user_host + " ~/]<br/>$  ";
+        prompt_elem.innerHTML = "[" + user_host + " <span class='path'>~/</span>]<br/>$  ";
     } else {
-        prompt_elem.innerHTML = "[" + user_host + " ~" + currentDir.getParentsString() + "]<br/>$  ";
+        prompt_elem.innerHTML = "[" + user_host + " <span class='path'>~" + currentDir.getParentsString() + "</span>]<br/>$  ";
     }
     if (count_match == 1) {
         return match;
@@ -672,9 +691,9 @@ function keyHandler(e) {
                 var entry_elem = document.getElementById("main-entry");
                 var prompt_elem = document.getElementById("prompt");
                 if (currentDir.name == "root") {
-                    prompt_elem.innerHTML = "[" + user_host + " ~/]<br/>$  ";
+                    prompt_elem.innerHTML = "[" + user_host + " <span class='path'>~/</span>]<br/>$  ";
                 } else {
-                    prompt_elem.innerHTML = "[" + user_host + " ~" + currentDir.getParentsString() + "]<br/>$  ";
+                    prompt_elem.innerHTML = "[" + user_host + " <span class='path'>~" + currentDir.getParentsString() + "</span>]<br/>$  ";
                 }
                 var entry_content = entry_elem.value;
                 document.getElementById("hist").innerHTML += "<br/><br/>" + prompt_elem.innerHTML
