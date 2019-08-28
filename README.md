@@ -1,6 +1,6 @@
 # Personal Website
 
-This is my take on a personal website. It's command-line driven with graphical elements for those who feel uncomfortable with the command line.
+This is my take on a personal website. It's command-line driven, with graphical elements for those who feel uncomfortable with the command line.
 
 While it looks a bit like bash initially, it is all written by hand using only javascript and DOM manipulation (with of course HTML and CSS for styling). All commands are custom implemented.
 
