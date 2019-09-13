@@ -156,7 +156,7 @@ class Directory {
      * @param {String} currInput `String` against which to match
      */
     listMatching(currInput) {
-        var ret_str = ""
+        var ret_str = "";
         var len = this.children.length;
         for (var i = 0; i < len; i++) {
             if (this.children[i].name.toUpperCase().startsWith(currInput.toUpperCase())) {
@@ -282,7 +282,7 @@ function handle_input(input) {
                            <td>&nbsp→&nbsp</td>\
                            <td>list current directory</td>\
                         </tr>\
-                    </table>"
+                    </table>";
             break;
         case "ls":
             output = currentDir.getChildrenString();
@@ -455,7 +455,7 @@ Course assistant under Dr. Hui Wang\
 <li>Led in-class lab sessions to help students understand the technical implementations of designing and querying a database</li>\
 </ul></div>";
 
-var concurrent = new File("ConcurrentProgramming.txt")
+var concurrent = new File("ConcurrentProgramming.txt");
 concurrent.contents = "<div class=\"textdoc\">\
 <br />\
 <strong>Course Assistant for Concurrent Programming</strong>\
@@ -524,19 +524,21 @@ Graduating May 2020<br />\
 GPA: 3.51<br /><br />\
 <strong>Major Subjects</strong>:<br />\
 <ul>\
-  <li>Discrete Structures</li>\
-  <li>Automata and Computation</li>\
+  <li>Advanced Programming in the UNIX Environment</li>\
+  <li>Web Development</li>\
   <li>Algorithms</li>\
   <li>Systems Programming</li>\
-  <li>Programming Languages</li>\
-  <li>Intro to Web Programming and Development</li>\
-  <li>Intro to IT Security</li>\
+  <li>Agile Methods in Software Development</li>\
   <li>Software Development Process</li>\
   <li>Concurrent Programming</li>\
-  <li>Agile Methods in Software Development</li>\
   <li>Operating Systems</li>\
-  <li>Linear Algebra</li>\
   <li>Creative Problem Solving and Team Programming</li>\
+  <li>Intro to IT Security</li>\
+  <li>Discrete Structures</li>\
+  <li>Automata and Computation</li>\
+  <li>Programming Languages</li>\
+  <li>Intro to Web Programming and Development</li>\
+  <li>Linear Algebra</li>\
 </ul>\
 </div>";
 
