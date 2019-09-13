@@ -615,16 +615,13 @@ skills.addFile(other);
 var contact = new Directory(currentDir, "Contact");
 
 var email = new File("email.txt");
-email.contents = "<br /><a href='ewasem@stevens.edu'>ewasem@stevens.edu</a>"
-var phone = new File("phone.txt");
-phone.contents = "<br />(609) 498-2128";
+email.contents = "<br /><a href='ewasem@stevens.edu'>ewasem@stevens.edu</a>";
 var github = new File("GitHub.txt");
-github.contents = "<br/><a href='https://github.com/elliot-wasem'>https://github.com/elliot-wasem</a>"
+github.contents = "<br/><a href='https://github.com/elliot-wasem'>https://github.com/elliot-wasem</a>";
 var linkedin = new File("LinkedIn.txt");
 linkedin.contents = "<br/><a href='https://www.linkedin.com/in/elliot-wasem/'>https://www.linkedin.com/in/elliot-wasem/</a>";
 
 contact.addFile(email);
-contact.addFile(phone);
 contact.addFile(github);
 contact.addFile(linkedin);
 
