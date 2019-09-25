@@ -745,7 +745,7 @@ function clickEmployment() {
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    main_entry.focus();
+    //main_entry.focus();
 }
 function clickCourseAssistant() {
     var main_entry = document.getElementById("main-entry");
@@ -757,7 +757,7 @@ function clickCourseAssistant() {
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    main_entry.focus();
+    //main_entry.focus();
 }
 function clickAssistantJob(job) {
     var main_entry = document.getElementById("main-entry");
@@ -767,7 +767,7 @@ function clickAssistantJob(job) {
     }
     main_entry.value = "cat " + job;
     get_entry();
-    main_entry.focus();
+    //main_entry.focus();
 }
 function clickJob(job) {
     var main_entry = document.getElementById("main-entry");
@@ -777,7 +777,7 @@ function clickJob(job) {
     }
     main_entry.value = "cat " + job;
     get_entry();
-    main_entry.focus();
+    //main_entry.focus();
 }
 function clickEducation() {
     collapseAll();
@@ -790,7 +790,7 @@ function clickEducation() {
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    main_entry.focus();
+    //main_entry.focus();
 }
 function clickSkills() {
     collapseAll();
@@ -803,13 +803,13 @@ function clickSkills() {
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    main_entry.focus();
+    //main_entry.focus();
 }
 function clickFile(file) {
     var main_entry = document.getElementById("main-entry");
     main_entry.value = "cat " + file;
     get_entry();
-    main_entry.focus();
+    //main_entry.focus();
 }
 function clickContact() {
     collapseAll();
@@ -822,5 +822,5 @@ function clickContact() {
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    main_entry.focus();
+    //main_entry.focus();
 }
