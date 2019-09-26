@@ -100,9 +100,13 @@ a {
     margin: 0;
     width: 80%;
     outline: none;
+    font-family: "Inconsolata";
+    font-size: 1.2rem;
 }
 #prompt {
     padding-top: 0;
+    font-family: "Inconsolata";
+    font-size: 1.2rem;
 }
 #hist {
     padding-bottom: 0.3rem;
@@ -124,4 +128,5 @@ a {
 #basicinfo {
     color: lightgray;
     font-family: "Inconsolata";
+    font-size: 1.2rem;
 }
