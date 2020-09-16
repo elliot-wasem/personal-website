@@ -669,7 +669,7 @@ skills.addFile(other);
 
 var contact = new Directory(currentDir, "Contact");
 
-var email = new File("email.txt");
+var email = new File("Email.txt");
 email.contents = "<br /><a href='ewasem@stevens.edu'>ewasem@stevens.edu</a>";
 var github = new File("GitHub.txt");
 github.contents = "<br/><a href='https://github.com/elliot-wasem'>https://github.com/elliot-wasem</a>";
