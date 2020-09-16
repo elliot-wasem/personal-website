@@ -530,7 +530,7 @@ Sales team lead for sales of cellphones, wireless plans, and home services.\
 var dexgroup = new File("DexGroup.txt");
 dexgroup.contents = "<div class=\"textdoc\">\
 <br/>\
-<a href='mailto:elliot@dexgroup.com'>elliot@dexgroup.com</a>\
+<a href='mailto:elliot@dexgroup.net'>elliot@dexgroup.net</a>\
 <br /><br />\
 <strong>Software Engineer at DexGroup</strong>\
 <br />\
