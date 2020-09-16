@@ -395,7 +395,7 @@ dexterity.contents = "<div class=\"textdoc\">\
 <br />\
 Hoboken, NJ\
 <br />\
-April 2018 to present\
+April 2018 to June 2020\
 <br /><br />\
 Software developer for a database engine startup.\
 <ul>\
@@ -434,7 +434,7 @@ Hoboken, NJ<br />August 2018 to December 2018\
 Course assistant under Dr. Iraklis Tsekourakis\
 <ul>\
 <li>Instruct students in the fundamentals of web programming and web development</li>\
-<li>Grade students' assignments</li>\
+<li>Graded students' assignments</li>\
 <li>Help students more fully understand material they find difficult</li>\
 </ul></div>";
 
@@ -451,7 +451,7 @@ August 2018 to December 2018,</br>August 2019 to December 2019\
 Course assistant under Dr. Hui Wang\
 <ul>\
 <li>Instruct students in the fundamentals of database design and implementation</li>\
-<li>Grade students' assignments</li>\
+<li>Graded students' assignments</li>\
 <li>Led in-class lab sessions to help students understand the technical implementations of designing and querying a database</li>\
 </ul></div>";
 
@@ -469,7 +469,7 @@ Course assistant under Dr. Eduardo Bonelli\
 <ul>\
 <li>Designed assignments for students to teach them the topics of message passing and concurrent programming</li>\
 <li>Instruct students in fundamental topics surrounding concurrent programming, model checking, and message passing</li>\
-<li>Grade students' assignments</li>\
+<li>Graded students' assignments</li>\
 <li>Held office hours for students who needed further clarification on the topics</li>\
 </ul></div>";
 
@@ -486,7 +486,25 @@ January 2019 to May 2019\
 Course Assistant under Dr. Iraklis Tsekourakis\
 <ul>\
 <li>Instruct students in algorithm design, complexity, and implementation in C++, with focus on optimizing time complexity and writing stable, safe code</li>\
-<li>Grade students' assignments</li>\
+<li>Graded students' assignments</li>\
+<li>Held office hours, workshops, and seminars to expand the students' understanding of the material</li>\
+</ul></div>";
+
+var systems = new File("Systems.txt");
+systems.contents = "<div class=\"textdoc\">\
+<br />\
+<strong>Course Assistant for Systems Programming</strong>\
+<br />\
+Hoboken, NJ\
+<br />\
+January 2020 to May 2020\
+<br />\
+<br />\
+Course Assistant under Dr. Brian Borowski\
+<ul>\
+<li>Instructed students in the intricacies of systems programming, targeting the Linux operating system</li>\
+<li>Designed and implemented various assignments, quizzes, workbooks to further understanding of the material</li>\
+<li>Graded students' assignments</li>\
 <li>Held office hours, workshops, and seminars to expand the students' understanding of the material</li>\
 </ul></div>";
 
@@ -494,6 +512,7 @@ courseassistant.addFile(algorithms);
 courseassistant.addFile(concurrent);
 courseassistant.addFile(databaseManagementSystems);
 courseassistant.addFile(introToWebProgramming);
+courseassistant.addFile(systems);
 
 var marketsource = new File("MarketSource.txt");
 marketsource.contents = "<div class=\"textdoc\">\
@@ -508,6 +527,42 @@ Sales team lead for sales of cellphones, wireless plans, and home services.\
 <li>Acted as Target’s tech expert</li>\
 </ul></div>";
 
+var dexgroup = new File("DexGroup.txt");
+dexgroup.contents = "<div class=\"textdoc\">\
+<br/>\
+<a href='mailto:elliot@dexgroup.com'>elliot@dexgroup.com</a>\
+<br /><br />\
+<strong>Software Engineer at DexGroup</strong>\
+<br />\
+Remote\
+<br />\
+June 2020 to present\
+<br /><br />\
+Software engineer designing HMIs (human machine interfaces) for companies like Amazon and Wayfair.\
+<ul>\
+  <li>Designed and implemented human-computer interfaces for 5+ Amazon and Wayfair warehouses and facilities</li>\
+  <li>Allowed floor workers much clearer access to data by creating live visualizing warehouse systems using Ignition software</li>\
+  <li>Created visually comprehensive statistics to aid with system upkeep and utilization</li>\
+</ul></div>";
+
+var wisEngineering = new File("WisEngineering.txt");
+wisEngineering.contents = "<div class=\"textdoc\">\
+<br/>\
+<a href='mailto:ewasem@wisengineering.com'>ewasem@wisengineering.com</a>\
+<br /><br />\
+<strong>Software Engineer at WisEngineering LLC</strong>\
+<br />\
+Denville, NJ\
+<br />\
+August 2020 to present\
+<br /><br />\
+Software engineer designing military applications for Android.\
+<ul>\
+  <li>Worked in Java and Android Studio creating applications for the US Military</li>\
+</ul></div>";
+
+employment.addFile(wisEngineering);
+employment.addFile(dexgroup);
 employment.addFile(dexterity);
 employment.addFile(researchassistant);
 employment.addFile(courseassistant);
@@ -520,12 +575,14 @@ stevens.contents = "<div class=\"textdoc\">\
 <br /><strong>Stevens Institute of Technology</strong><br />\
 Bachelor of Science in Computer Science<br />\
 Hoboken, NJ<br />\
-Graduating May 2020<br />\
-GPA: 3.51<br /><br />\
+Graduated May 2020 with high honors<br />\
+GPA: 3.6<br /><br />\
 <strong>Major Subjects</strong>:<br />\
 <ul>\
   <li>Advanced Programming in the UNIX Environment</li>\
-  <li>Web Development</li>\
+  <li>Systems Administration</li>\
+  <li>Compiler Design and Implementation</li>\
+  <li>Web Development I</li>\
   <li>Algorithms</li>\
   <li>Systems Programming</li>\
   <li>Agile Methods in Software Development</li>\
@@ -574,9 +631,6 @@ proglangs.contents = "<div class=\"textdoc\">\
   <li>CSS</li>\
   <li>JavaScript</li>\
   <li>OCaml</li>\
-  <li>Scheme</li>\
-  <li>AVR Assembly</li>\
-  <li>Promela</li>\
 </ul>\
 </div>";
 
@@ -586,6 +640,9 @@ software.contents = "<div class=\"textdoc\">\
   <li>Linux</li>\
   <li>Windows</li>\
   <li>Google Cloud Services</li>\
+  <li>Amazon Web Services</li>\
+  <li>Vim</li>\
+  <li>Emacs</li>\
   <li>Microsoft Office</li>\
   <li>Google G Suite</li>\
   <li>Sublime Text 3</li>\
@@ -593,10 +650,7 @@ software.contents = "<div class=\"textdoc\">\
   <li>GitHub/GitLab</li>\
   <li>GIMP</li>\
   <li>VSCode</li>\
-  <li>Vim</li>\
-  <li>Emacs</li>\
-  <li>Spin</li>\
-  <li>jSpin</li>\
+  <li>Android Studio</li>\
 </ul>\
 </div>";
 
@@ -606,7 +660,6 @@ other.contents = "<div class=\"textdoc\">\
   <li>Remote server management</li>\
   <li>Systems development</li>\
   <li>Linux system administration</li>\
-  <li>Model checking</li>\
 </ul>\
 </div>";
 
