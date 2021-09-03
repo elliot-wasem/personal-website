@@ -554,13 +554,27 @@ wisEngineering.contents = "<div class=\"textdoc\">\
 <br />\
 Denville, NJ\
 <br />\
-August 2020 to present\
+August 2020 to August 2021\
 <br /><br />\
 Software engineer designing military applications for Android.\
 <ul>\
   <li>Worked in Java and Android Studio creating applications for the US Military</li>\
 </ul></div>";
 
+var l3harris = new File("L3Harris.txt");
+l3harris.contents = "<div class=\"textdoc\">\
+<br/>\
+<a href='mailto:Elliot.Wasem@L3Harris.com'>Elliot.Wasem@L3Harris.com</a>\
+<br /><br />\
+<strong>Senior Associate Software Engineer at L3Harris Technologies</strong>\
+<br />\
+Clifton, NJ\
+<br />\
+August 2021 to present\
+<br /><br />\
+Software engineer designing classified embedded military applications.</div>";
+
+employment.addFile(l3harris);
 employment.addFile(wisEngineering);
 employment.addFile(dexgroup);
 employment.addFile(dexterity);
