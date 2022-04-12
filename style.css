@@ -8,7 +8,7 @@ button {
 }
 body {
     background-color: black;
-    padding-left: 3rem;
+    padding-left: 0rem;
 }
 a {
     color: white;
@@ -108,14 +108,24 @@ a {
     padding-top: 3rem;
 }
 #propic {
-    max-width: 10rem;
+    height: 7rem;
+    width: 7rem;
     border-radius: 50%;
-    margin-left: 5rem;
+    margin-right: 1rem;
 }
 #sidebar {
     padding-right: 3rem;
+    padding-left: 3rem;
     padding-top: 0rem;
     position: fixed;
+}
+#imgdiv {
+    display: flex;
+    flex-direction: row;
+}
+#mydescription {
+    display: flex;
+    flex-direction: column;
 }
 #imglink {
     color: black;
