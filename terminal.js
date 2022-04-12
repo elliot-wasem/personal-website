@@ -658,6 +658,7 @@ software.contents = "<div class=\"textdoc\">\
 <ul>\
   <li>Linux</li>\
   <li>Windows</li>\
+  <li>VxWorks</li>\
   <li>Google Cloud Services</li>\
   <li>Amazon Web Services</li>\
   <li>Vim</li>\
@@ -676,6 +677,7 @@ software.contents = "<div class=\"textdoc\">\
 var other = new File("OtherSkills.txt");
 other.contents = "<div class=\"textdoc\">\
 <ul>\
+  <li>Embedded programming</li>\
   <li>Remote server management</li>\
   <li>Systems development</li>\
   <li>Linux system administration</li>\
