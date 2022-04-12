@@ -256,33 +256,7 @@ function handle_input(input) {
             output = "";
             break;
         case "help":
-            output = "<table>\
-                        <tr>\
-                           <td>cat [file]</td>\
-                           <td>&nbsp→&nbsp</td>\
-                           <td>display contents of file</td>\
-                        </tr>\
-                        <tr>\
-                           <td>cd [target dir]</td>\
-                           <td>&nbsp→&nbsp</td>\
-                           <td>change directory to target dir</td>\
-                        </tr>\
-                        <tr>\
-                           <td>clear</td>\
-                           <td>&nbsp→&nbsp</td>\
-                           <td>clear terminal</td>\
-                        </tr>\
-                        <tr>\
-                           <td>help</td>\
-                           <td>&nbsp→&nbsp</td>\
-                           <td>display this dialog again</td>\
-                        </tr>\
-                        <tr>\
-                           <td>ls</td>\
-                           <td>&nbsp→&nbsp</td>\
-                           <td>list current directory</td>\
-                        </tr>\
-                    </table>";
+            output = helpcontents;
             break;
         case "ls":
             output = currentDir.getChildrenString();
@@ -387,126 +361,27 @@ var last_cmd = "";
 var employment = new Directory(currentDir, "Employment");
 
 var dexterity = new File("DexterityDB.txt");
-dexterity.contents = "<div class=\"textdoc\">\
-<br/>\
-<a href='mailto:elliot@dexteritydb.com'>elliot@dexteritydb.com</a>\
-<br /><br />\
-<strong>Software Developer at DexterityDB</strong>\
-<br />\
-Hoboken, NJ\
-<br />\
-April 2018 to June 2020\
-<br /><br />\
-Software developer for a database engine startup.\
-<ul>\
-  <li>Create architectures, implement, test, and document new software</li>\
-  <li>Consult on business planning and strategy</li>\
-  <li>Assist in creating development tools such as build/test servers, website design, etc.</li>\
-</ul></div>";
+dexterity.contents = dexteritycontents;
 
 var researchassistant = new File("ResearchAssistant.txt");
-researchassistant.contents = "<div class=\"textdoc\">\
-</br>\
-<strong>Researched eBPF in Linux Environment</strong>\
-<br />\
-Hoboken, NJ\
-<br />\
-January 2019 to April 2019\
-<br />\
-Research Assistant under Dr. Antonio Barbalace\
-<ul>\
-  <li>Worked on identifying possibilities of extending eBPF to other parts of the Linux kernel</li>\
-  <li>Setup and managed in-house servers on which to run experiments</li>\
-  <li>Created and maintained bash scripts to automate our experimentation process</li>\
-  <li>Ran experiments involving his previous work</li>\
-</ul></div>";
+researchassistant.contents = researchassistantcontents;
 
 var courseassistant = new Directory(employment, "CourseAssistantships");
 
 var introToWebProgramming = new File("IntroToWeb.txt");
-introToWebProgramming.contents = "<div class=\"textdoc\">\
-<br/>\
-<strong>Course Assistant for Intro to Web Programming & Web Development</strong>\
-<br />\
-Hoboken, NJ<br />August 2018 to December 2018\
-<br />\
-<br />\
-Course assistant under Dr. Iraklis Tsekourakis\
-<ul>\
-<li>Instruct students in the fundamentals of web programming and web development</li>\
-<li>Graded students' assignments</li>\
-<li>Help students more fully understand material they find difficult</li>\
-</ul></div>";
+introToWebProgramming.contents = introToWebProgrammingContents;
 
 var databaseManagementSystems = new File("DatabaseManagement.txt");
-databaseManagementSystems.contents = "<div class=\"textdoc\">\
-<br />\
-<strong>Course Assistant for Database Management Systems</strong>\
-<br />\
-Hoboken, NJ\
-<br />\
-August 2018 to December 2018,</br>August 2019 to December 2019\
-<br />\
-<br />\
-Course assistant under Dr. Hui Wang\
-<ul>\
-<li>Instruct students in the fundamentals of database design and implementation</li>\
-<li>Graded students' assignments</li>\
-<li>Led in-class lab sessions to help students understand the technical implementations of designing and querying a database</li>\
-</ul></div>";
+databaseManagementSystems.contents = databaseManagementSystemsContents;
 
 var concurrent = new File("ConcurrentProgramming.txt");
-concurrent.contents = "<div class=\"textdoc\">\
-<br />\
-<strong>Course Assistant for Concurrent Programming</strong>\
-<br />\
-Hoboken, NJ\
-<br />\
-August 2019 to December 2019\
-<br />\
-<br />\
-Course assistant under Dr. Eduardo Bonelli\
-<ul>\
-<li>Designed assignments for students to teach them the topics of message passing and concurrent programming</li>\
-<li>Instruct students in fundamental topics surrounding concurrent programming, model checking, and message passing</li>\
-<li>Graded students' assignments</li>\
-<li>Held office hours for students who needed further clarification on the topics</li>\
-</ul></div>";
+concurrent.contents = concurrentcontents;
 
 var algorithms = new File("Algorithms.txt");
-algorithms.contents = "<div class=\"textdoc\">\
-<br />\
-<strong>Course Assistant for Algorithms</strong>\
-<br />\
-Hoboken, NJ\
-<br />\
-January 2019 to May 2019\
-<br />\
-<br />\
-Course Assistant under Dr. Iraklis Tsekourakis\
-<ul>\
-<li>Instruct students in algorithm design, complexity, and implementation in C++, with focus on optimizing time complexity and writing stable, safe code</li>\
-<li>Graded students' assignments</li>\
-<li>Held office hours, workshops, and seminars to expand the students' understanding of the material</li>\
-</ul></div>";
+algorithms.contents = algorithmscontents;
 
 var systems = new File("Systems.txt");
-systems.contents = "<div class=\"textdoc\">\
-<br />\
-<strong>Course Assistant for Systems Programming</strong>\
-<br />\
-Hoboken, NJ\
-<br />\
-January 2020 to May 2020\
-<br />\
-<br />\
-Course Assistant under Dr. Brian Borowski\
-<ul>\
-<li>Instructed students in the intricacies of systems programming, targeting the Linux operating system</li>\
-<li>Designed and implemented various assignments, quizzes, workbooks to further understanding of the material</li>\
-<li>Graded students' assignments</li>\
-<li>Held office hours, workshops, and seminars to expand the students' understanding of the material</li>\
-</ul></div>";
+systems.contents = systemscontents;
 
 courseassistant.addFile(algorithms);
 courseassistant.addFile(concurrent);
@@ -515,71 +390,22 @@ courseassistant.addFile(introToWebProgramming);
 courseassistant.addFile(systems);
 
 var marketsource = new File("MarketSource.txt");
-marketsource.contents = "<div class=\"textdoc\">\
-<br/><strong>Target Mobile Wireless Team Lead</strong><br />\
-Princeton, NJ<br />\
-October 2015 to November 2016<br /><br />\
-Sales team lead for sales of cellphones, wireless plans, and home services.\
-<ul>\
-<li>Hired new team members and set up schedule for store</li>\
-<li>Managed accounts for Verizon Wireless, AT&T, Sprint, and Comcast Xfinity</li>\
-<li>Maintained relations with Target Management to ensure effective sales flow, fraud prevention, team participation, and attentiveness to detail</li>\
-<li>Acted as Target’s tech expert</li>\
-</ul></div>";
+marketsource.contents = marketsourcecontents;
 
 var dexgroup = new File("DexGroup.txt");
-dexgroup.contents = "<div class=\"textdoc\">\
-<br/>\
-<a href='mailto:elliot@dexgroup.net'>elliot@dexgroup.net</a>\
-<br /><br />\
-<strong>Software Engineer at DexGroup</strong>\
-<br />\
-Remote\
-<br />\
-June 2020 to present\
-<br /><br />\
-Software engineer designing HMIs (human machine interfaces) for companies like Amazon and Wayfair.\
-<ul>\
-  <li>Designed and implemented human-computer interfaces for 5+ Amazon and Wayfair warehouses and facilities</li>\
-  <li>Allowed floor workers much clearer access to data by creating live visualizing warehouse systems using Ignition software</li>\
-  <li>Created visually comprehensive statistics to aid with system upkeep and utilization</li>\
-</ul></div>";
+dexgroup.contents = dexgroupcontents;
 
 var wisEngineering = new File("WisEngineering.txt");
-wisEngineering.contents = "<div class=\"textdoc\">\
-<br/>\
-<a href='mailto:ewasem@wisengineering.com'>ewasem@wisengineering.com</a>\
-<br /><br />\
-<strong>Software Engineer at WisEngineering LLC</strong>\
-<br />\
-Denville, NJ\
-<br />\
-August 2020 to August 2021\
-<br /><br />\
-Software engineer designing military applications for Android.\
-<ul>\
-  <li>Worked in Java and Android Studio creating applications for the US Military</li>\
-</ul></div>";
+wisEngineering.contents = wisengineeringcontents;
 
 var l3harris = new File("L3Harris.txt");
-l3harris.contents = "<div class=\"textdoc\">\
-<br/>\
-<a href='mailto:Elliot.Wasem@L3Harris.com'>Elliot.Wasem@L3Harris.com</a>\
-<br /><br />\
-<strong>Senior Associate Software Engineer at L3Harris Technologies</strong>\
-<br />\
-Clifton, NJ\
-<br />\
-August 2021 to present\
-<br /><br />\
-Software engineer working on embedded systems.\
-<ul>\
-  <li>Working in C++ on a legacy codebase\
-  <li>Targeting VxWorks operating system running on custom hardware\
-</ul>\
-</div>";
+l3harris.contents = l3harriscontents;
+
+var tutoring = new File("TutoringServices.txt");
+tutoring.contents = tutoringcontents;
 
 employment.addFile(l3harris);
+employment.addFile(tutoring);
 employment.addFile(wisEngineering);
 employment.addFile(dexgroup);
 employment.addFile(dexterity);
@@ -590,46 +416,10 @@ employment.addFile(marketsource);
 var education = new Directory(currentDir, "Education");
 
 var stevens = new File("StevensInstitute.txt");
-stevens.contents = "<div class=\"textdoc\">\
-<br /><strong>Stevens Institute of Technology</strong><br />\
-Bachelor of Science in Computer Science<br />\
-Hoboken, NJ<br />\
-Graduated May 2020 with high honors<br />\
-GPA: 3.6<br /><br />\
-<strong>Major Subjects</strong>:<br />\
-<ul>\
-  <li>Advanced Programming in the UNIX Environment</li>\
-  <li>Systems Administration</li>\
-  <li>Compiler Design and Implementation</li>\
-  <li>Web Development I</li>\
-  <li>Algorithms</li>\
-  <li>Systems Programming</li>\
-  <li>Agile Methods in Software Development</li>\
-  <li>Software Development Process</li>\
-  <li>Concurrent Programming</li>\
-  <li>Operating Systems</li>\
-  <li>Creative Problem Solving and Team Programming</li>\
-  <li>Intro to IT Security</li>\
-  <li>Discrete Structures</li>\
-  <li>Automata and Computation</li>\
-  <li>Programming Languages</li>\
-  <li>Intro to Web Programming and Development</li>\
-  <li>Linear Algebra</li>\
-</ul>\
-</div>";
+stevens.contents = stevenscontents;
 
 var mercer = new File("MercerCounty.txt");
-mercer.contents = "<div class=\"textdoc\">\
-<br /><strong>Mercer County Community College</strong><br />\
-West Windsor, New Jersey<br /><br />\
-<strong>Major Subjects</strong>:<br />\
-<ul>\
-  <li>Intro to Computer Science</li>\
-  <li>Intro to Programming</li>\
-  <li>Data Structures</li>\
-  <li>Computer Architecture</li>\
-</ul>\
-</div>";
+mercer.contents = mercercontents;
 
 education.addFile(stevens);
 education.addFile(mercer);
@@ -637,52 +427,13 @@ education.addFile(mercer);
 var skills = new Directory(currentDir, "Skills");
 
 var proglangs = new File("ProgrammingLanguages.txt");
-proglangs.contents = "<div class=\"textdoc\">\
-<ul>\
-  <li>Rust</li>\
-  <li>C</li>\
-  <li>C++</li>\
-  <li>Python</li>\
-  <li>Shell Script (BASH primarily)</li>\
-  <li>Java</li>\
-  <li>Erlang</li>\
-  <li>HTML</li>\
-  <li>CSS</li>\
-  <li>JavaScript</li>\
-  <li>OCaml</li>\
-</ul>\
-</div>";
+proglangs.contents = proglangscontents;
 
 var software = new File("Software.txt");
-software.contents = "<div class=\"textdoc\">\
-<ul>\
-  <li>Linux</li>\
-  <li>Windows</li>\
-  <li>VxWorks</li>\
-  <li>Google Cloud Services</li>\
-  <li>Amazon Web Services</li>\
-  <li>Vim</li>\
-  <li>Emacs</li>\
-  <li>Microsoft Office</li>\
-  <li>Google G Suite</li>\
-  <li>Sublime Text 3</li>\
-  <li>Eclipse IDE</li>\
-  <li>GitHub/GitLab</li>\
-  <li>GIMP</li>\
-  <li>VSCode</li>\
-  <li>Android Studio</li>\
-</ul>\
-</div>";
+software.contents = softwarecontents;
 
 var other = new File("OtherSkills.txt");
-other.contents = "<div class=\"textdoc\">\
-<ul>\
-  <li>Embedded programming</li>\
-  <li>Remote server management</li>\
-  <li>Systems development</li>\
-  <li>Linux system administration</li>\
-</ul>\
-</div>";
+other.contents = othercontents;
 
 skills.addFile(proglangs);
 skills.addFile(software);
@@ -691,7 +442,7 @@ skills.addFile(other);
 var contact = new Directory(currentDir, "Contact");
 
 var email = new File("Email.txt");
-email.contents = "<br /><a href='ewasem@stevens.edu'>ewasem@stevens.edu</a>";
+email.contents = "<br /><a href='elliotbielwasem@gmail.com'>elliotbielwasem@gmail.com</a>";
 var github = new File("GitHub.txt");
 github.contents = "<br/><a href='https://github.com/elliot-wasem'>https://github.com/elliot-wasem</a>";
 var linkedin = new File("LinkedIn.txt");
@@ -701,6 +452,10 @@ contact.addFile(email);
 contact.addFile(github);
 contact.addFile(linkedin);
 
+var about = new File("About.txt");
+about.contents = aboutcontents;
+
+currentDir.addFile(about);
 currentDir.addChild(employment);
 currentDir.addChild(education);
 currentDir.addChild(skills);
@@ -805,6 +560,16 @@ function collapseAll() {
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "none";
     }
+}
+function clickAbout() {
+    collapseAll();
+    var main_entry = document.getElementById("main-entry");
+    if (currentDir.name !== "root") {
+        main_entry.value = "cd ~";
+        get_entry();
+    }
+    main_entry.value = "cat About.txt";
+    get_entry();
 }
 function clickEmployment() {
     collapseAll();
