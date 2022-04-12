@@ -572,7 +572,12 @@ Clifton, NJ\
 <br />\
 August 2021 to present\
 <br /><br />\
-Software engineer designing classified embedded military applications.</div>";
+Software engineer working on embedded systems.\
+<ul>\
+  <li>Working in C++ on a legacy codebase\
+  <li>Targeting VxWorks operating system running on custom hardware\
+</ul>\
+</div>";
 
 employment.addFile(l3harris);
 employment.addFile(wisEngineering);
