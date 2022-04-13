@@ -1,6 +1,6 @@
 let algorithmscontents =
     "<div class=\"textdoc\">\
-        <br />\
+        <h3>Stevens Institute of Technology</h3>\
         <strong>Course Assistant for Algorithms</strong>\
         <br />\
         Hoboken, NJ\

@@ -1,6 +1,7 @@
 let marketsourcecontents = 
     "<div class=\"textdoc\">\
-        <br/><strong>Target Mobile Wireless Team Lead</strong><br />\
+        <h3>MarketSource</h3>\
+        <strong>Target Mobile Wireless Team Lead</strong><br />\
         Princeton, NJ<br />\
         October 2015 to November 2016<br /><br />\
         Sales team lead for sales of cellphones, wireless plans, and home services.\

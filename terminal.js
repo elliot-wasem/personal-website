@@ -439,18 +439,8 @@ skills.addFile(proglangs);
 skills.addFile(software);
 skills.addFile(other);
 
-var contact = new Directory(currentDir, "Contact");
-
-var email = new File("Email.txt");
-email.contents = "<br /><a href='elliotbielwasem@gmail.com'>elliotbielwasem@gmail.com</a>";
-var github = new File("GitHub.txt");
-github.contents = "<br/><a href='https://github.com/elliot-wasem'>https://github.com/elliot-wasem</a>";
-var linkedin = new File("LinkedIn.txt");
-linkedin.contents = "<br/><a href='https://www.linkedin.com/in/elliot-wasem/'>https://www.linkedin.com/in/elliot-wasem/</a>";
-
-contact.addFile(email);
-contact.addFile(github);
-contact.addFile(linkedin);
+var contact = new File("Contact.txt");
+contact.contents = contactcontents;
 
 var about = new File("About.txt");
 about.contents = aboutcontents;
@@ -459,7 +449,29 @@ currentDir.addFile(about);
 currentDir.addChild(employment);
 currentDir.addChild(education);
 currentDir.addChild(skills);
-currentDir.addChild(contact);
+currentDir.addFile(contact);
+
+var all_files = {
+    "L3Harris.txt": l3harris,
+    "About.txt": about,
+    "DexterityDB.txt": dexterity,
+    "TutoringServices.txt": tutoring,
+    "WisEngineering.txt": wisEngineering,
+    "DexGroup.txt": dexgroup,
+    "ResearchAssistant.txt": researchassistant,
+    "Algorithms.txt": algorithms,
+    "DatabaseManagement.txt": databaseManagementSystems,
+    "IntroToWeb.txt": introToWebProgramming,
+    "ConcurrentProgramming.txt": concurrent,
+    "Systems.txt": systems,
+    "MarketSource.txt": marketsource,
+    "StevensInstitute.txt": stevens,
+    "MercerCounty.txt": mercer,
+    "ProgrammingLanguages.txt": proglangs,
+    "Software.txt": software,
+    "OtherSkills.txt": other,
+    "Contact.txt": contact
+}
 
 document.getElementById("main-entry").focus();
 
@@ -469,6 +481,22 @@ if (main_input.addEventListener) {
 } else if (myInput.attachEvent) {
     myInput.attachEvent('onkeydown', this.keyHandler); /* damn IE hack */
 }
+
+// terminal toggle handlers
+let terminal_section = document.getElementById("terminal-section");
+let gui_section = document.getElementById("gui-section");
+let main_body = document.getElementById("main-body");
+main_body.removeChild(gui_section);
+let terminal_checkbox = document.getElementById("termcheckbox");
+terminal_checkbox.checked = true;
+terminal_checkbox.addEventListener("change", function(){
+    if (terminal_checkbox.checked) {
+        main_body.replaceChild(terminal_section, gui_section);
+    } else {
+        main_body.replaceChild(gui_section, terminal_section);
+    }
+});
+gui_section.innerHTML = all_files["About.txt"].contents;
 
 function matchCommand(cmd) {
     var cmdlist = [ "cat ", "cd ", "clear ", "help ", "ls " ];
@@ -563,103 +591,120 @@ function collapseAll() {
 }
 function clickAbout() {
     collapseAll();
-    var main_entry = document.getElementById("main-entry");
-    if (currentDir.name !== "root") {
-        main_entry.value = "cd ~";
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        if (currentDir.name !== "root") {
+            main_entry.value = "cd ~";
+            get_entry();
+        }
+        main_entry.value = "cat About.txt";
         get_entry();
+    } else {
+        gui_section.innerHTML = all_files["About.txt"].contents;
     }
-    main_entry.value = "cat About.txt";
-    get_entry();
 }
 function clickEmployment() {
     collapseAll();
-    var main_entry = document.getElementById("main-entry");
-    if (currentDir.name !== "Employment"){
-        main_entry.value = "cd ~";
-        get_entry();
-        main_entry.value = "cd Employment";
-        get_entry();
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        if (currentDir.name !== "Employment"){
+            main_entry.value = "cd ~";
+            get_entry();
+            main_entry.value = "cd Employment";
+            get_entry();
+        }
     }
     var showelems = document.querySelectorAll('.employment-children');
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    //main_entry.focus();
 }
 function clickCourseAssistant() {
-    var main_entry = document.getElementById("main-entry");
-    if (currentDir.name !== "CourseAssistantships") {
-        main_entry.value = "cd CourseAssistantships";
-        get_entry();
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        if (currentDir.name !== "CourseAssistantships") {
+            main_entry.value = "cd CourseAssistantships";
+            get_entry();
+        }
     }
     var showelems = document.querySelectorAll('.courseassistant-children');
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    //main_entry.focus();
 }
 function clickAssistantJob(job) {
-    var main_entry = document.getElementById("main-entry");
-    if (currentDir.name !== "CourseAssistantships") {
-        main_entry.value = "cd CourseAssistantships";
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        if (currentDir.name !== "CourseAssistantships") {
+            main_entry.value = "cd CourseAssistantships";
+            get_entry();
+        }
+        main_entry.value = "cat " + job;
         get_entry();
+    } else {
+        gui_section.innerHTML = all_files[job].contents;
     }
-    main_entry.value = "cat " + job;
-    get_entry();
-    //main_entry.focus();
 }
 function clickJob(job) {
-    var main_entry = document.getElementById("main-entry");
-    if (currentDir.name === "CourseAssistantships") {
-        main_entry.value = "cd ..";
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        if (currentDir.name === "CourseAssistantships") {
+            main_entry.value = "cd ..";
+            get_entry();
+        }
+        main_entry.value = "cat " + job;
         get_entry();
+    } else {
+        clickEmployment();
+        gui_section.innerHTML = all_files[job].contents;
     }
-    main_entry.value = "cat " + job;
-    get_entry();
-    //main_entry.focus();
 }
 function clickEducation() {
     collapseAll();
-    var main_entry = document.getElementById("main-entry");
-    main_entry.value = "cd ~";
-    get_entry();
-    main_entry.value = "cd Education";
-    get_entry();
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        main_entry.value = "cd ~";
+        get_entry();
+        main_entry.value = "cd Education";
+        get_entry();
+    }
     var showelems = document.querySelectorAll('.education-children');
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    //main_entry.focus();
 }
 function clickSkills() {
     collapseAll();
-    var main_entry = document.getElementById("main-entry");
-    main_entry.value = "cd ~";
-    get_entry();
-    main_entry.value = "cd Skills";
-    get_entry();
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        main_entry.value = "cd ~";
+        get_entry();
+        main_entry.value = "cd Skills";
+        get_entry();
+    }
     var showelems = document.querySelectorAll('.skills-children');
     for (var i = 0; i < showelems.length; i++) {
         showelems[i].style.display = "block";
     }
-    //main_entry.focus();
 }
 function clickFile(file) {
-    var main_entry = document.getElementById("main-entry");
-    main_entry.value = "cat " + file;
-    get_entry();
-    //main_entry.focus();
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        main_entry.value = "cat " + file;
+        get_entry();
+    } else {
+        gui_section.innerHTML = all_files[file].contents;
+    }
 }
 function clickContact() {
     collapseAll();
-    var main_entry = document.getElementById("main-entry");
-    main_entry.value = "cd ~";
-    get_entry();
-    main_entry.value = "cd Contact";
-    get_entry();
-    var showelems = document.querySelectorAll('.contact-children');
-    for (var i = 0; i < showelems.length; i++) {
-        showelems[i].style.display = "block";
+    if (terminal_checkbox.checked) {
+        var main_entry = document.getElementById("main-entry");
+        main_entry.value = "cd ~";
+        get_entry();
+        main_entry.value = "cat Contact.txt";
+        get_entry();
+    } else {
+        gui_section.innerHTML = contact.contents;
     }
-    //main_entry.focus();
 }

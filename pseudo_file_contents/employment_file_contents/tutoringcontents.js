@@ -1,6 +1,6 @@
 let tutoringcontents =
     "<div>\
-    <br/>\
+    <h3>Tutoring Services</h3>\
     <strong>Experienced and Patient Computer Science Tutor</strong><br/>\
     Location: Online<br/>\
     September 2020 to present\

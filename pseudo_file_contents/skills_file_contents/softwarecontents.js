@@ -1,5 +1,6 @@
 let softwarecontents =
 "<div class=\"textdoc\">\
+    <h3>Software</h3>\
     <ul>\
         <li>Linux</li>\
         <li>Windows</li>\

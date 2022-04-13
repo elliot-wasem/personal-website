@@ -1,6 +1,6 @@
 let wisengineeringcontents = 
     "<div class=\"textdoc\">\
-        <br />\
+        <h3>WisEngineering, LLC</h3>\
         <strong>Software Engineer at WisEngineering LLC</strong>\
         <br />\
         Denville, NJ\

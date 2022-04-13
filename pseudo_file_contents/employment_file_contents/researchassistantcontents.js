@@ -1,6 +1,6 @@
 let researchassistantcontents =
     "<div class=\"textdoc\">\
-        </br>\
+        <h3>Stevens Institute of Technology</h3>\
         <strong>Researched eBPF in Linux Environment</strong>\
         <br />\
         Hoboken, NJ\

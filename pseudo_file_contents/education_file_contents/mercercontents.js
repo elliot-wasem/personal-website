@@ -1,6 +1,6 @@
 let mercercontents =
 "<div class=\"textdoc\">\
-    <br /><strong>Mercer County Community College</strong><br />\
+    <h3>Mercer County Community College</h3>\
     West Windsor, New Jersey<br /><br />\
     <strong>Major Subjects</strong>:<br />\
     <ul>\

@@ -1,6 +1,6 @@
 let systemscontents =
     "<div class=\"textdoc\">\
-        <br />\
+        <h3>Stevens Institute of Technology</h3>\
         <strong>Course Assistant for Systems Programming</strong>\
         <br />\
         Hoboken, NJ\

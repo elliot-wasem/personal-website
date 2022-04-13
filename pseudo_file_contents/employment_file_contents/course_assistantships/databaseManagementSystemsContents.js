@@ -1,6 +1,6 @@
 let databaseManagementSystemsContents =
     "<div class=\"textdoc\">\
-        <br />\
+        <h3>Stevens Institute of Technology</h3>\
         <strong>Course Assistant for Database Management Systems</strong>\
         <br />\
         Hoboken, NJ\

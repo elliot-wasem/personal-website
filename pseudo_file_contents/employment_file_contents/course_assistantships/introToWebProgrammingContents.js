@@ -1,6 +1,6 @@
 let introToWebProgrammingContents =
     "<div class=\"textdoc\">\
-        <br/>\
+        <h3>Stevens Institute of Technology</h3>\
         <strong>Course Assistant for Intro to Web Programming & Web Development</strong>\
         <br />\
         Hoboken, NJ<br />August 2018 to December 2018\

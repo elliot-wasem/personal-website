@@ -1,6 +1,6 @@
 let dexteritycontents = 
     "<div class=\"textdoc\">\
-        <br/>\
+        <h3>DexterityDB</h3>\
         <strong>Software Developer at DexterityDB</strong>\
         <br />\
         Hoboken, NJ\

@@ -1,18 +1,79 @@
 button {
-    -webkit-transition-duration: 0.2s; /* Safari */
+    -webkit-transition-duration: 0.2s;
+    /* Safari */
     transition-duration: 0.1s;
     border-color: lightgray;
     border-radius: 8px;
     border-style: hidden;
     text-align-last: left;
 }
+
 body {
     background-color: black;
     padding-left: 0rem;
 }
+
 a {
     color: white;
 }
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 28px;
+    height: 16px;
+    margin-top: 2px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    background-color: lightgray;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    border-radius: 6px;
+    background-color: black;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(12px);
+    -ms-transform: translateX(126px);
+    transform: translateX(12px);
+}
+
 .text-section {
     color: lightgray;
     line-height: 1.5rem;
@@ -20,10 +81,12 @@ a {
     font-size: 1.2rem;
     padding-left: 23rem;
 }
+
 .textdoc {
     color: white;
     margin-left: 2rem;
 }
+
 .navbutton button {
     font-weight: bold;
     background-color: black;
@@ -35,10 +98,12 @@ a {
     outline: none;
 
 }
+
 .navbutton button:hover {
     background-color: lightgray;
     color: black;
 }
+
 .innernavbutton button {
     font-weight: bold;
     background-color: black;
@@ -50,10 +115,12 @@ a {
     margin-left: 2rem;
     outline: none;
 }
+
 .innernavbutton button:hover {
     background-color: lightgray;
     color: black;
 }
+
 .innerinnernavbutton button {
     font-weight: bold;
     background-color: black;
@@ -65,29 +132,43 @@ a {
     margin-left: 4rem;
     outline: none;
 }
+
 .innerinnernavbutton button:hover {
     background-color: lightgray;
     color: black;
 }
+
 .employment-children {
     display: none;
 }
+
 .courseassistant-children {
     display: none;
 }
+
 .education-children {
     display: none;
 }
+
 .skills-children {
     display: none;
 }
+
 .contact-children {
     display: none;
 }
+
 .path {
     color: #24a0ff;
     filter: contrast(.75);
 }
+
+.basicinfo {
+    color: lightgray;
+    font-family: "Inconsolata";
+    font-size: 1.2rem;
+}
+
 #main-entry {
     background-color: black;
     border: none;
@@ -98,40 +179,55 @@ a {
     font-family: "Inconsolata";
     font-size: 1.2rem;
 }
+
 #prompt {
     padding-top: 0;
     font-family: "Inconsolata";
     font-size: 1.2rem;
 }
+
 #hist {
     padding-bottom: 0.3rem;
     padding-top: 3rem;
 }
+
 #propic {
     height: 7rem;
     width: 7rem;
     border-radius: 50%;
     margin-right: 1rem;
 }
+
 #sidebar {
     padding-right: 3rem;
     padding-left: 3rem;
     padding-top: 0rem;
     position: fixed;
 }
+
 #imgdiv {
     display: flex;
     flex-direction: row;
 }
+
 #mydescription {
     display: flex;
     flex-direction: column;
 }
+
 #imglink {
     color: black;
 }
-#basicinfo {
-    color: lightgray;
-    font-family: "Inconsolata";
-    font-size: 1.2rem;
+
+#termtoggle {
+    display: flex;
+    flex-direction: row;
+}
+
+#termlabel {
+    margin-right: 3rem;
+}
+
+#gui-display-contents {
+    padding-top: 1rem;
 }

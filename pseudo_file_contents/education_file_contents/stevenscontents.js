@@ -1,6 +1,6 @@
 let stevenscontents =
     "<div class=\"textdoc\">\
-        <br /><strong>Stevens Institute of Technology</strong><br />\
+        <h3>Stevens Institute of Technology</h3>\
         Bachelor of Science in Computer Science<br />\
         Hoboken, NJ<br />\
         Graduated May 2020 with high honors<br />\

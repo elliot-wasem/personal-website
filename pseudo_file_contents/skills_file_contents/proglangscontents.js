@@ -1,5 +1,6 @@
 let proglangscontents =
     "<div class=\"textdoc\">\
+        <h3>Programming Languages</h3>\
         <ul>\
             <li>Rust</li>\
             <li>C</li>\

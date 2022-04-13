@@ -1,6 +1,6 @@
 let aboutcontents = 
     "<div class=\"textdoc\">\
-        <br/>\
+        <h3>About</h3>\
         <p>Hello,</p>\
         <p>I am a software engineer with a passion for the low-level, and the logically pure.<p/>\
         <p>I am currently working as an embedded software engineer for critical aerospace<br/>\

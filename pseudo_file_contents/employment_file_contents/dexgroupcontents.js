@@ -1,6 +1,6 @@
 let dexgroupcontents =
     "<div class=\"textdoc\">\
-        <br/>\
+        <h3>DexGroup, LLC</h3>\
         <strong>Software Engineer at DexGroup</strong>\
         <br />\
         Remote\

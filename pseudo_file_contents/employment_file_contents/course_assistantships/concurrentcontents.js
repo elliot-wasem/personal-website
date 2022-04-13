@@ -1,6 +1,6 @@
 let concurrentcontents =
     "<div class=\"textdoc\">\
-        <br />\
+        <h3>Stevens Institute of Technology</h3>\
         <strong>Course Assistant for Concurrent Programming</strong>\
         <br />\
         Hoboken, NJ\
