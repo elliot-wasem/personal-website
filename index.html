@@ -27,6 +27,8 @@
         </div>
         <div class='navbutton' onclick="clickAbout()"><button>About</button></div>
         <div class='navbutton' onclick="clickEmployment()"><button>Employment</button></div>
+        <div class='innernavbutton employment-children' onclick="clickJob('OpenDrives.txt')"><button>OpenDrives
+                Inc</button></div>
         <div class='innernavbutton employment-children' onclick="clickJob('L3Harris.txt')"><button>L3Harris
                 Technologies</button></div>
         <div class='innernavbutton employment-children' onclick="clickJob('TutoringServices.txt')"><button>Tutoring
@@ -36,23 +38,27 @@
         <div class='innernavbutton employment-children' onclick="clickJob('DexGroup.txt')"><button>DexGroup LLC</button>
         </div>
         <div class='innernavbutton employment-children' onclick="clickJob('DexterityDB.txt')">
-            <button>DexterityDB</button></div>
+            <button>DexterityDB</button>
+        </div>
         <div class='innernavbutton employment-children' onclick="clickJob('ResearchAssistant.txt')"><button>Research
                 Assistant</button></div>
         <div class='innernavbutton employment-children' onclick="clickCourseAssistant()"><button>Course
                 Assistantships</button></div>
         <div class='innerinnernavbutton courseassistant-children' onclick="clickAssistantJob('Algorithms.txt')">
-            <button>Algorithms</button></div>
+            <button>Algorithms</button>
+        </div>
         <div class='innerinnernavbutton courseassistant-children'
             onclick="clickAssistantJob('ConcurrentProgramming.txt')"><button>Concurrent Programming</button></div>
         <div class='innerinnernavbutton courseassistant-children' onclick="clickAssistantJob('DatabaseManagement.txt')">
-            <button>Database Management Systems</button></div>
+            <button>Database Management Systems</button>
+        </div>
         <div class='innerinnernavbutton courseassistant-children'><button
                 onclick="clickAssistantJob('IntroToWeb.txt')">Intro to Web Development</button></div>
         <div class='innerinnernavbutton courseassistant-children'><button
                 onclick="clickAssistantJob('Systems.txt')">Systems Programming</button></div>
         <div class='innernavbutton employment-children' onclick="clickJob('MarketSource.txt')">
-            <button>MarketSource</button></div>
+            <button>MarketSource</button>
+        </div>
         <div class='navbutton' onclick="clickEducation()"><button>Education</button></div>
         <div class='innernavbutton education-children' onclick="clickFile('StevensInstitute.txt')"><button>Stevens
                 Institute of Technology</button></div>
@@ -72,11 +78,12 @@
         <div id='terminal-section'>
             <form onsubmit="get_entry(); return false" action="">
                 <p id="hist">Start typing... Confused? Type 'help'.</p>
-                <span id="prompt">~/ $ </span><input type="text" id='main-entry' class='text-section' autocomplete="off">
+                <span id="prompt">~/ $ </span><input type="text" id='main-entry' class='text-section'
+                    autocomplete="off">
             </form>
         </div>
         <div id='gui-section'>
-            <p id='gui-display-contents'>helloworld</p>
+            <p id='gui-display-contents'></p>
         </div>
     </div>
 </body>
@@ -84,6 +91,7 @@
 <script src="pseudo_file_contents/contactcontents.js"></script>
 <script src="pseudo_file_contents/employment_file_contents/wisengineeringcontents.js"></script>
 <script src="pseudo_file_contents/employment_file_contents/tutoringcontents.js"></script>
+<script src="pseudo_file_contents/employment_file_contents/opendrivescontents.js"></script>
 <script src="pseudo_file_contents/employment_file_contents/l3harriscontents.js"></script>
 <script src="pseudo_file_contents/employment_file_contents/dexgroupcontents.js"></script>
 <script src="pseudo_file_contents/employment_file_contents/dexteritycontents.js"></script>

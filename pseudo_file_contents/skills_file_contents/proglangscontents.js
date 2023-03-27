@@ -9,9 +9,5 @@ let proglangscontents =
             <li>Shell Script (BASH primarily)</li>\
             <li>Java</li>\
             <li>Erlang</li>\
-            <li>HTML</li>\
-            <li>CSS</li>\
-            <li>JavaScript</li>\
-            <li>OCaml</li>\
         </ul>\
     </div>";

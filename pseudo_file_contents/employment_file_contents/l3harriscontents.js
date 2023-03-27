@@ -2,7 +2,7 @@ let l3harriscontents = "<div class=\"textdoc\">\
     <h3>L3Harris Technologies</h3>\
     <strong>Senior Associate Software Engineer at L3Harris Technologies</strong><br />\
     Clifton, NJ<br />\
-    August 2021 to present<br /><br />\
+    August 2021 to November 2022<br /><br />\
     <a href='mailto:Elliot.Wasem@L3Harris.com'>Elliot.Wasem@L3Harris.com</a>\
     <br /><br />\
     Software engineer working on embedded systems.\
