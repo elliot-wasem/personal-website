@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'IBM Plex Mono';
+    src: url("manpage/IBM-Plex-Mono/ibmplexmono-regular-webfont.woff") format("woff");
+}
 button {
     -webkit-transition-duration: 0.2s;
     /* Safari */
@@ -77,8 +81,8 @@ input:checked+.slider:before {
 .text-section {
     color: lightgray;
     line-height: 1.5rem;
-    font-family: "Inconsolata";
-    font-size: 1.2rem;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
     padding-left: 23rem;
 }
 
@@ -96,7 +100,8 @@ input:checked+.slider:before {
     margin-top: 10px;
     padding: 0.3rem;
     outline: none;
-
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 .navbutton button:hover {
@@ -114,11 +119,15 @@ input:checked+.slider:before {
     margin-top: 10px;
     margin-left: 2rem;
     outline: none;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 .innernavbutton button:hover {
     background-color: lightgray;
     color: black;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 .innerinnernavbutton button {
@@ -165,8 +174,8 @@ input:checked+.slider:before {
 
 .basicinfo {
     color: lightgray;
-    font-family: "Inconsolata";
-    font-size: 1.2rem;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 #main-entry {
@@ -176,14 +185,14 @@ input:checked+.slider:before {
     margin: 0;
     width: 80%;
     outline: none;
-    font-family: "Inconsolata";
-    font-size: 1.2rem;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 #prompt {
     padding-top: 0;
-    font-family: "Inconsolata";
-    font-size: 1.2rem;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 #hist {
@@ -203,6 +212,8 @@ input:checked+.slider:before {
     padding-left: 3rem;
     padding-top: 0rem;
     position: fixed;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 #imgdiv {
@@ -213,6 +224,8 @@ input:checked+.slider:before {
 #mydescription {
     display: flex;
     flex-direction: column;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 #imglink {
@@ -226,8 +239,12 @@ input:checked+.slider:before {
 
 #termlabel {
     margin-right: 3rem;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }
 
 #gui-display-contents {
     padding-top: 1rem;
+    font-family: "IBM Plex Mono";
+    font-size: 1rem;
 }

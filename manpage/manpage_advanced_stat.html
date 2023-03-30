@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Advanced stat(2) in Linux</title>
+</head>
+
+</html>
+
+<body>
+    <div class="header-footer">
+        <div class="header-footer-left">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+        <div class="header-footer-middle">
+            <p>
+                <a href="../index.html">HOME(1)</a>
+                <a href="manpage_table_of_contents.html">Table of Contents</a>
+            </p>
+        </div>
+        <div class="header-footer-right">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>TITLE</p>
+        </div>
+        <div class="section-contents">
+            <p>Advanced <span class="highlight">stat(2)</span> in Linux</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>DESCRIPTION</p>
+        </div>
+        <div class="section-contents">
+            <p>
+                Prior to reading this, a common working knowledge of the C programming language
+                is very helpful. Furthermore, reading up on
+                <a href="https://linux.die.net/man/2/stat"><span class="highlight">stat(2)</span></a> and
+                <a href="https://linux.die.net/man/2/fstatat"><span class="highlight">fstatat(2)</span></a> will be
+                helpful.
+            </p>
+            <p>As a means of preparing our environment, let us create a file on our machine.</p>
+            <pre><code>#include &ltstdio.h&gt
+#include &ltstring.h&gt
+#include &ltstdlib.h&gt
+#include &lterrno.h&gt
+#include &ltfcntl.h&gt
+#include &ltsys/stat.h&gt
+#include &ltunistd.h&gt
+    
+int main() {
+    int my_fd, bytes_written;
+    char *initial_contents = "this is the contents of myfile\n";
+    
+    if ((my_fd = open("myfile.txt", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR)) &lt 0) {
+        fprintf(stderr, "Failed to create file: %s\n", strerror(errno));
+        return EXIT_FAILURE;
+    }
+    bytes_written = write(my_fd, initial_contents, strlen(initial_contents));
+    close(my_fd);
+    
+    if (bytes_written &lt 0) {
+        fprintf(stderr, "Failed to write to file: %s\n", strerror(errno));
+        return EXIT_FAILURE;
+    }
+    // remaining code snippets will be put in here
+}</code></pre>
+            <p>
+                Now, suppose we created a file some time ago, and don't already know everything about it.
+                Suppose we want to know more information about it. Well, we can get that information with
+                the <span class="highlight">stat(2)</span> function! Let us set that up, and fill a
+                <span class="highlight">struct stat</span> with information about the file.
+            </p>
+            <pre><code>struct stat statbuf;
+
+// note that I had to reference statbuf to fill it. Why is this?
+if (stat("myfile.txt", &statbuf) &lt 0) {
+    fprintf(stderr, "Failed to get information on the file: %s\n", strerror(errno));
+    return EXIT_FAILURE;
+}</code></pre>
+            <p>
+                At this point, <span class="highlight">statbuf</span> is populated with information about the file.
+                For a full list of what information can be obtained therein, see the description in <span
+                    class="highlight">man 2 stat</span>.
+                Well, there are a few things I'm interested in related to this file.
+            </p>
+            <p>What is the file's size?</p>
+            <pre><code>printf("Size of file: %lu characters\n", statbuf.st_size);</code></pre>
+            <p>What is the user ID of the owner of the file?</p>
+            <pre><code>printf("File owner's UID: %u\n", statbuf.st_uid);</code></pre>
+            <p>When was the file last accessed? Modified? Look at <span class="highlight">man 3 ctime</span> for how it
+                is printed.</p>
+            <pre><code>#include &lttime.h&gt
+
+printf("Last access time: %s", ctime(&statbuf.st_atime));
+printf("Last modification time: %s", ctime(&statbuf.st_mtime));</code></pre>
+            <p>Lastly, how can I find the permissions of a file?</p>
+            <pre><code>printf("Permissions of file: %d\n", statbuf.st_mode);</code></pre>
+            <p>What?? That's weird, it's just some number that doesn't make a lot of sense. How can I really read into
+                this?</p>
+            <p>Well, if you will recall, file permissions are broken up as follows:</p>
+            <table>
+                <tr>
+                    <td>| S_IRUSR | </td>
+                    <td>S_IWUSR | </td>
+                    <td>S_IXUSR | </td>
+                </tr>
+                <tr>
+                    <td>| S_IRGRP | </td>
+                    <td>S_IWGRP | </td>
+                    <td>S_IXGRP | </td>
+                </tr>
+                <tr>
+                    <td>| S_IROTH | </td>
+                    <td>S_IWOTH | </td>
+                    <td>S_IXOTH | </td>
+                </tr>
+            </table>
+            <p>For the above table:</p>
+            <table>
+                <tr>
+                    <td>IR</td>
+                    <td> | Read permissions</td>
+                </tr>
+                <tr>
+                    <td>IW</td>
+                    <td> | Write permissions</td>
+                </tr>
+                <tr>
+                    <td>IX</td>
+                    <td> | Execute permissions</td>
+                </tr>
+                <tr>
+                    <td>USR</td>
+                    <td> | Permission for user</td>
+                </tr>
+                <tr>
+                    <td>GRP</td>
+                    <td> | Permission for group</td>
+                </tr>
+                <tr>
+                    <td>OTH</td>
+                    <td> | Permission for others</td>
+                </tr>
+            </table>
+            <p>So we see that the 9 possible combinations for those 6 characteristics provide
+                9 possible permission values for a file.</p>
+            <p>These constants (<span class="highlight">S_IRUSR</span>,
+                <span class="highlight">S_IXGRP</span>, etc) are just declarations whose values are
+                1 shifted some number of bits to the left. As such, we can use them to figure out
+                the values of different permission bits in the statbuf's mode field, or its permission
+                field, by performing a bitwise <span class="highlight">AND</span> between the two.
+                For example, after doing the following:</p>
+            <pre><code>int user_read_permissions = statbuf.st_mode & S_IRUSR;</code></pre>
+            <p><span class="highlight">user_read_permissions</span> will be greater than 0 if
+                the owner can read from the file, and zero if the owner cannot read from the file. Like
+                this, we can systematically check each bit in the permission string. Let us set up a
+                quick example of how this might work:</p>
+            <pre><code>int perms[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
+int permission_valid;
+printf("-"); // this is to print the file type bit, as displayed in `$ ls -l`.
+for (int i = 0; i < 9; i += 3) {
+    permission_valid = statbuf.st_mode & perms[i];
+    if (permission_valid) {
+        printf("r");
+    } else {
+        printf("-");
+    }
+    permission_valid = statbuf.st_mode & perms[i+1];
+    if (permission_valid) {
+        printf("w");
+    } else {
+        printf("-");
+    }
+    permission_valid = statbuf.st_mode & perms[i+2];
+    if (permission_valid) {
+        printf("x");
+    } else {
+        printf("-");
+    }
+}
+printf("\n");</code></pre>
+        <p>You will notice that this printout looks more familiar and human readable!</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">AUTHOR</div>
+        <div class="section-contents">Elliot Wasem, <a href="mailto:elliotbielwasem@gmail.com">&ltelliotbielwasem@gmail.com&gt</a></div>
+    </div>
+    <div class="section">
+        <div class="section-header"><p>SEE ALSO</p></div>
+        <div class="section-contents"><p>
+                <a href="https://linux.die.net/man/2/stat"><span class="highlight">stat(2)</span></a>,
+                <a href="https://linux.die.net/man/2/fstatat"><span class="highlight">fstatat(2)</span></a>
+                <a href="../index.html"><span class="highlight">HOME(1)</span></a>
+                <a href="manpage_table_of_contents.html"><span class="highlight">Table of Contents</span></a>
+</p></div>
+    </div>
+    <div class="header-footer">
+        <div class="header-footer-left">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+        <div class="header-footer-middle">
+            <p>
+                March 30, 2023
+            </p>
+        </div>
+        <div class="header-footer-right">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+    </div>
+</body>
