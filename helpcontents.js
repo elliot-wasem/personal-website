@@ -25,4 +25,9 @@ let helpcontents =
         <td>&nbsp→&nbsp</td>\
         <td>list current directory</td>\
     </tr>\
+    <tr>\
+        <td>man</td>\
+        <td>&nbsp→&nbsp</td>\
+        <td>go to blog</td>\
+    </tr>\
 </table>";

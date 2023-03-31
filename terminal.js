@@ -269,6 +269,9 @@ function handle_input(input) {
             break;
         case "clear":
             break;
+        case "man":
+            window.location.href = "./manpage/manpage_table_of_contents.html";
+            break;
         default:
             if (cmd != undefined){
                 output = "<br/>command '" + cmd + "' not found!";
