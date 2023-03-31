@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Directory Traversal in Linux</title>
+</head>
+
+</html>
+
+<body>
+    <div class="header-footer">
+        <div class="header-footer-left">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+        <div class="header-footer-middle">
+            <p>
+                <a href="../index.html">HOME(1)</a>
+                <a href="manpage_table_of_contents.html">Table of Contents</a>
+            </p>
+        </div>
+        <div class="header-footer-right">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>TITLE</p>
+        </div>
+        <div class="section-contents">
+            <p>Directory Traversal in Linux</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>DESCRIPTION</p>
+        </div>
+        <div class="section-contents">
+            <p>
+                Prior to reading this, a common working knowledge of the C programming language is very helpful.
+                Furthermore, it will help if you have read through the man pages for
+                <a href="https://man7.org/linux/man-pages/man3/readdir.3.html"><span
+                        class="highlight">readdir(3)</span></a>,
+                <a href="https://man7.org/linux/man-pages/man3/opendir.3.html"><span
+                        class="highlight">opendir(3)</span></a>,
+                <a href="https://man7.org/linux/man-pages/man3/closedir.3.html"><span
+                        class="highlight">closedir(3)</span></a>.
+                Additionally, read through <a href="https://linux.die.net/man/2/fstatat"><span
+                        class="highlight">fstatat(2)</span></a>,
+                as it has a better description of some of the functionality provided by <span
+                    class="highlight">stat(2)</span>
+                than is present in that man page.
+            </p>
+            <p>
+                Take note especially of a suite of functions packed in with <span
+                    class="highlight">&ltsys/stat.h&gt</span>:
+            </p>
+            <p>
+                Given some <span class="highlight">struct stat sb</span> which was populated with a call to <span
+                    class="highlight">stat(2)</span>...
+            </p>
+            <pre><code>S_ISBLK(sb.st_mode);  /* is block special? */
+S_ISCHR(sb.st_mode);  /* is character special? */
+S_ISDIR(sb.st_mode);  /* is directory? */
+S_ISFIFO(sb.st_mode); /* is fifo (first-in first-out)? */
+S_ISLNK(sb.st_mode);  /* is symlink? */
+S_ISREG(sb.st_mode);  /* is regular file? */
+S_ISSOCK(sb.st_mode); /* is socket? */</code></pre>
+            <p>
+                You can use these functions to tell if a file is of a certain type.
+            </p>
+            <p>
+                Directory reading and traversal is controlled by two things:
+                A directory pointer (<span class="highlight">DIR *</span>)
+                and a <span class="highlight">struct dirent</span> as follows
+                (and as defined in <span class="highlight">man 3 readdir</span>):
+            </p>
+            <pre><code>struct dirent {
+    ino_t          d_ino;       /* Inode number */
+    off_t          d_off;       /* Not an offset; this can be ignored */
+    unsigned short d_reclen;    /* Length of this record */
+    unsigned char  d_type;      /* Type of file; not supported
+                                 * by all filesystem types */
+    char           d_name[256]; /* Null-terminated filename */
+};</code></pre>
+            <p>
+                The <span class="highlight">DIR *</span> maintains the current open
+                directory, and is handed to us by a call to
+                <span class="highlight">opendir(const char *name)</span>
+                (where <span class="highlight">name</span> is a character array holding
+                a string representing the directory). We can perform two operations on a
+                <span class="highlight">DIR *</span>:
+                <span class="highlight">readdir(DIR *dirp)</span> and
+                <span class="highlight">closedir(DIR *dirp)</span>.
+                <span class="highlight">readdir</span> allows us to systematically read through
+                each entry in a directory. It reads in no particular order, and will read in
+                hidden files (those starting with a <span class="highlight">.</span>), as well as
+                the current directory <span class="highlight">.</span> and parent directory
+                <span class="highlight">..</span>. Ultimately a directory is just a structured file
+                that a filesystem can read to figure out where the children of a directory are, and
+                doesn't innately have any sense of order. <span class="highlight">ls</span> appearing
+                ordered alphabetically is a feature of its implementation, not of the filesystem itself.
+            </p>
+            <p>
+                Each call to <span class="highlight">readdir</span> will give us a pointer to a
+                <span class="highlight">struct dirent</span>, or to <span class="highlight">NULL</span>
+                if we have exhausted the directory, or if an error occured. The
+                <span class="highlight">struct dirent</span> can tell us several things about the file to
+                which it refers. For example, we can tell the file's name. Keep in mind, this is just the
+                name of the file, not its entire path.
+            </p>
+            <p>
+                So, let us simply read through a directory, and each time we reach a file,
+                we will detect if it is another directory or not.
+            </p>
+            <pre><code>#include &ltsys/stat.h&gt
+#include &ltsys/types.h&gt
+
+#include &ltdirent.h&gt
+#include &lterrno.h&gt
+#include &ltstdio.h&gt
+#include &ltstdlib.h&gt
+#include &ltstring.h&gt
+#include &ltunistd.h&gt
+            
+int main() {
+    
+    DIR *dp;
+    struct dirent *dent;
+    struct stat sb;
+            
+    /* open directory so we can traverse it. */
+    /* NOTE: opendir returns NULL if there was some error, and sets `errno` appropriately */
+    if ((dp = opendir(".")) == NULL) {
+        fprintf(stderr, "Error: Cannot open directory. %s.\n", strerror(errno));
+        return EXIT_FAILURE;
+    }
+            
+    /* We want to iterate until readdir returns NULL. This can mean one of two things:
+     *   1. we have reached the end of the directory.
+     *   2. there was an error.
+     * As such, to distinguish between an error and the end of the directory, we set
+     * errno to 0 before we readdir, then again at the end of every loop. Then
+     * when we exit, we check if errno is 0. If it is not zero, then an error occured 
+     * in readdir. */
+    errno = 0;
+    while ((dent = readdir(dp)) != NULL) {
+        /* get information on file so we can tell if it is a directory or a non-directory */
+        if (stat(dent-&gtd_name, &sb) &lt 0) {
+            fprintf(stderr, "Error: Cannot stat file '%s'. %s.\n", dent->d_name, strerror(errno));
+            continue;
+        }
+            
+        /* check if the directory entry is a directory itself */
+        if (S_ISDIR(sb.st_mode)) {
+            printf("Directory: '%s'\n", dent-&gtd_name);
+        } else {
+            printf("Non-directory: '%s'\n", dent-&gtd_name);
+        }
+        errno = 0;
+    }
+            
+    closedir(dp);
+            
+    if (errno != 0) {
+        fprintf(stderr, "Error: An error occured while reading the directory. %s.\n", strerror(errno));
+        return EXIT_FAILURE;
+    }
+            
+    return EXIT_SUCCESS;
+}</code></pre>
+            <p>Try playing around with this code. What happens if you try to read a file that you
+                don't have permissions on? What if, instead of calling
+                <span class="highlight">opendir</span> on <span class="highlight">"."</span>,
+                we call it on some other directory? What if we don't have read or execute permissions
+                on that directory?
+            </p>
+            <p>
+                Well, as it turns out, we actually need execute permissions on a directory for us to
+                open it and read its contents. It may feel counterintuitive, but this is a common
+                problem that people run into when they're trying to debug why their program won't work.
+            </p>
+            <p>
+                How can we recursively call this for all subdirectories? Since we know how to check the
+                type of a file, how will this information help us recurse?
+            </p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">AUTHOR</div>
+        <div class="section-contents">Elliot Wasem, <a
+                href="mailto:elliotbielwasem@gmail.com">&ltelliotbielwasem@gmail.com&gt</a></div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>SEE ALSO</p>
+        </div>
+        <div class="section-contents">
+            <p>
+                <a href="https://man7.org/linux/man-pages/man3/readdir.3.html"><span
+                        class="highlight">readdir(3)</span></a>,
+                <a href="https://man7.org/linux/man-pages/man3/opendir.3.html"><span
+                        class="highlight">opendir(3)</span></a>,
+                <a href="https://man7.org/linux/man-pages/man3/closedir.3.html"><span
+                        class="highlight">closedir(3)</span></a>.
+                <a href="https://linux.die.net/man/2/fstatat"><span class="highlight">fstatat(2)</span></a>
+                <a href="../index.html"><span class="highlight">HOME(1)</span></a>
+                <a href="manpage_table_of_contents.html"><span class="highlight">Table of Contents</span></a>
+            </p>
+        </div>
+        <div class="header-footer">
+            <div class="header-footer-left">
+                <p>
+                    Elliot(8)
+                </p>
+            </div>
+            <div class="header-footer-middle">
+                <p>
+                    March 31, 2023
+                </p>
+            </div>
+            <div class="header-footer-right">
+                <p>
+                    Elliot(8)
+                </p>
+            </div>
+        </div>
+</body>
