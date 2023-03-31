@@ -7,8 +7,6 @@
     <title>Advanced stat(2) in Linux</title>
 </head>
 
-</html>
-
 <body>
     <div class="header-footer">
         <div class="header-footer-left">
@@ -159,7 +157,8 @@ printf("Last modification time: %s", ctime(&statbuf.st_mtime));</code></pre>
                 1 shifted some number of bits to the left. As such, we can use them to figure out
                 the values of different permission bits in the statbuf's mode field, or its permission
                 field, by performing a bitwise <span class="highlight">AND</span> between the two.
-                For example, after doing the following:</p>
+                For example, after doing the following:
+            </p>
             <pre><code>int user_read_permissions = statbuf.st_mode & S_IRUSR;</code></pre>
             <p><span class="highlight">user_read_permissions</span> will be greater than 0 if
                 the owner can read from the file, and zero if the owner cannot read from the file. Like
@@ -189,21 +188,26 @@ for (int i = 0; i < 9; i += 3) {
     }
 }
 printf("\n");</code></pre>
-        <p>You will notice that this printout looks more familiar and human readable!</p>
+            <p>You will notice that this printout looks more familiar and human readable!</p>
         </div>
     </div>
     <div class="section">
         <div class="section-header">AUTHOR</div>
-        <div class="section-contents">Elliot Wasem, <a href="mailto:elliotbielwasem@gmail.com">&ltelliotbielwasem@gmail.com&gt</a></div>
+        <div class="section-contents">Elliot Wasem, <a
+                href="mailto:elliotbielwasem@gmail.com">&ltelliotbielwasem@gmail.com&gt</a></div>
     </div>
     <div class="section">
-        <div class="section-header"><p>SEE ALSO</p></div>
-        <div class="section-contents"><p>
+        <div class="section-header">
+            <p>SEE ALSO</p>
+        </div>
+        <div class="section-contents">
+            <p>
                 <a href="https://linux.die.net/man/2/stat"><span class="highlight">stat(2)</span></a>,
                 <a href="https://linux.die.net/man/2/fstatat"><span class="highlight">fstatat(2)</span></a>
                 <a href="../index.html"><span class="highlight">HOME(1)</span></a>
                 <a href="manpage_table_of_contents.html"><span class="highlight">Table of Contents</span></a>
-</p></div>
+            </p>
+        </div>
     </div>
     <div class="header-footer">
         <div class="header-footer-left">
@@ -223,3 +227,6 @@ printf("\n");</code></pre>
         </div>
     </div>
 </body>
+<script src="script.js"></script>
+
+</html>
