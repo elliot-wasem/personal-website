@@ -16,4 +16,7 @@ function checkKeypress(e) {
     if (e.key == "G") {
         window.scrollTo(0, document.body.scrollHeight);
     }
+    if (e.code == "KeyQ") {
+        window.location.href = "../index.html";
+    }
 }
