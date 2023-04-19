@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Elliot Wasem - Software Engineer</title>
+</head>
+
+<body>
+    <div class="header-footer">
+        <div class="header-footer-left">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+        <div class="header-footer-middle">
+            <p>
+                <a href="../index.html">HOME(1)</a>
+                <a href="manpage_table_of_contents.html">Table of Contents</a>
+            </p>
+        </div>
+        <div class="header-footer-right">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>TITLE</p>
+        </div>
+        <div class="section-contents">
+            <p>Dynamically Linked Libraries & Shared Object Files</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>DESCRIPTION</p>
+        </div>
+        <div class="section-contents">
+            <p>
+                Prior to reading this, a common working knowledge of the C programming 
+                language is very helpful.
+            </p>
+            <p>
+                This demo will go over the semantics of dynamically linked libraries as
+                used in C. Look for parallels between this and opening/reading/closing
+                a file/directory/etc in <a href="manpage_directory_traversal.html">this post</a>.
+            </p>
+            <p>
+                A dynamically linked library is a compiled binary similar to an object file
+                (think <span class="highlight">foo.o</span>) that has been compiled such that
+                other executing programs can use the functions therein for their own purposes.
+            </p>
+            <p>
+                Let's say, for instance, that we have some trivial file called
+                <span class="highlight">my_dl.c</span> whose contents are as follows:
+            </p>
+            <pre><code>int add(int a, int b) {
+    return a + b;
+}</code></pre>
+            <p>
+                That's it, no headers, no extra fluff, it is what it is: a file that contains
+                a simple declaration and definition of a function that adds two numbers.
+                Note the types of parameters (<span class="highlight">int</span> and
+                <span class="highlight">int</span>) and the return type (also
+                <span class="highlight">int</span>) as these will be important later.
+            </p>
+            <p>
+                To compile this into a shared object file, we must call
+                <span class="highlight">gcc</span> as follows:
+            </p>
+            <pre><code>$ gcc -shared -fPIC -o my_dl.so my_dl.c</code></pre>
+            <p>
+                The <span class="highlight">-fPIC</span> option creates a position-independent
+                shared library. This means that the code is not dependent on being offset
+                relative to some other bit of code. This makes it suitable for inclusion in a
+                shared library. For trivial examples like this, we do not need it. However,
+                for more complex libraries it can be important.
+            </p>
+            <p>
+                After running the previous command, we have created a shared object file called
+                <span class="highlight">my_dl.so</span>.
+            </p>
+            <p>
+                Let us now start to build a driver program to test that our shared object library
+                was built properly. First, let us create a C file, and we will call it
+                <span class="highlight">dl_practice.c</span>. At the top of
+                <span class="highlight">dl_practice.c</span> let us include the following libraries:
+            </p>
+            <pre><code>#include &ltstdio.h&gt
+#include &ltstdlib.h&gt
+#include &ltdlfcn.h&gt</code></pre>
+            <p>
+                Next, let's create a <span class="highlight">main()</span>, and inside it declare
+                a couple variables we will need later:
+            </p>
+            <pre><code>int main() {
+    void *handle;
+    int (*add)(int, int);
+            </code></pre>
+            <p>
+                The <span class="highlight">void *handle</span> will be a handle to our shared
+                library once we open it. The function pointer <span class="highlight">add</span>
+                will be how we will access the function in our shared library. Note that the name
+                <span class="highlight">add</span> is not important, but rather the return type and
+                the parameter types are what are important.
+            </p>
+            <p>
+                Now, let us open our shared library:
+            </p>
+            <pre><code>    handle = dlopen("./my_dl.so", RTLD_NOW);
+    if (!handle) {
+        fprintf(stderr, "Error: Failed to create handle: %s.\n", dlerror());
+        return EXIT_FAILURE;
+    }</code></pre>
+            <p>
+                There are a few things to note here. If the call to 
+                <span class="highlight">dlopen</span> fails, <span class="highlight">handle</span>
+                will contain the value <span class="highlight">NULL</span>. The flag
+                <span class="highlight">RTLD_NOW</span> is one of two values that must be passed there,
+                the other being <span class="highlight">RTLD_LAZY</span>. This just has to do with how
+                and when the library is loaded. We won't concern ourselves with this for now and just
+                use <span class="highlight">RTLD_NOW</span>. Note also the use of
+                <span class="highlight">dlerror</span> to get the "reason" for failure. This is
+                analogous to the use of <span class="highlight">strerror(errno)</span> in our past
+                programs, but is specifically for the <span class="highlight">dlfcn</span> library.
+            </p>
+            <p>
+                So, we have a handle to our library. However, we cannot actually use the function
+                yet. This is because we need to actually load that function. To do so, we will
+                make the following call:
+            </p>
+            <pre><code>    *(int**)(&add) = dlsym(handle, "add");</code></pre>
+            <p>
+                Now, our function pointer <span class="highlight">add</span> can call the function
+                we declared in our shared library. Therefore, if we were to call
+                <span class="highlight">printf("%d\n", add(2, 3));</span>, the number 5 would be printed
+                to standard out.
+            </p>
+            <p>
+                Now, when we are done using our shared library we must make sure we close it. To do so,
+                make the following call:
+            </p>
+            <pre><code>    dlclose(handle);</code></pre>
+            <p>Do you notice any similarity between this and opening/closing a file?</p>
+            <p>
+                To compile this driver program, we do not need to change the
+                <span class="highlight">#include</span>d libraries at the top. However, we do need to
+                pass one additional flag to <span class="highlight">gcc</span> so that we can use
+                <span class="highlight">dlfcn</span>:
+            </p>
+            <pre><code>$ gcc -o dl_practice dl_practice.c -Wall -Werror -pedantic-errors -ldl</code></pre>
+            <p>
+                The <span class="highlight">-ldl</span> at the end tells <span class="highlight">gcc</span>
+                to find the <span class="highlight">dlfcn</span> library and include it.
+            </p>
+            <p> My whole <i>very</i> simple makefile for this little demo looks as follows:</p>
+            <pre><code>all:
+    gcc -shared -fPIC -o my_dl.so my_dl.c -Wall -Werror -pedantic-errors
+    gcc -o dl_practice dl_practice.c -Wall -Werror -pedantic-errors -ldl
+clean:
+    rm *.so dl_practice</code></pre>
+            <p>
+                Once you get it working, try making some more dynamically linkable shared
+                libraries. Try new functions and function signatures. Try creating two
+                functions with the same name but different behavior in two separate libraries.
+                How does this work? What happens? What did you expect to happen?
+            </p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">AUTHOR</div>
+        <div class="section-contents"><p>Elliot Wasem, <a
+                href="mailto:elliotbielwasem@gmail.com">&ltelliotbielwasem@gmail.com&gt</a></p></div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>SEE ALSO</p>
+        </div>
+        <div class="section-contents">
+            <p>
+                <a href="https://linux.die.net/man/3/dlopen"><span
+                        class="highlight">dlopen(3)</span></a>,
+                <a href="https://linux.die.net/man/3/dlclose"><span
+                        class="highlight">dlclose(3)</span></a>,
+                <a href="https://linux.die.net/man/3/dlsym"><span
+                        class="highlight">dlsym(3)</span></a>.
+                <a href="../index.html"><span class="highlight">HOME(1)</span></a>
+                <a href="manpage_table_of_contents.html"><span class="highlight">Table of Contents</span></a>
+            </p>
+        </div>
+    </div>
+    <div class="header-footer">
+        <div class="header-footer-left">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+        <div class="header-footer-middle">
+            <p>
+                April 19, 2023
+            </p>
+        </div>
+        <div class="header-footer-right">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
