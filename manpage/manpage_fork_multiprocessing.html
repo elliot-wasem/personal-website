@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Elliot Wasem - Software Engineer</title>
+</head>
+
+<body>
+    <div class="header-footer">
+        <div class="header-footer-left">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+        <div class="header-footer-middle">
+            <p>
+                <a href="../index.html">HOME(1)</a>
+                <a href="manpage_table_of_contents.html">Table of Contents</a>
+            </p>
+        </div>
+        <div class="header-footer-right">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>TITLE</p>
+        </div>
+        <div class="section-contents">
+            <p>Multiprocessing and Basic Process Management in C</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>DESCRIPTION</p>
+        </div>
+        <div class="section-contents">
+            <p>
+                Prior to reading this, a common working knowledge of the C programming
+                language is very helpful. Additionally, it will be helpful to have read through
+                the man pages for
+                <a href="https://man7.org/linux/man-pages/man2/fork.2.html"><span class="highlight">fork(2)</span></a>,
+                and
+                <a href="https://man7.org/linux/man-pages/man2/wait.2.html"><span class="highlight">wait(2)</span></a>.
+            </p>
+            <p>
+                A process is a running set of instructions that you might commonly call a "program". However, a program
+                (which is loosely defined as a piece of software created to solve a problem) can have many processes,
+                all of which must be uniquely identified. To achieve this, each process (regardless of its position as a
+                standalone process in a program or a process among many in a program) has a procces identifier (PID).
+            </p>
+            <p>
+                Each process consists of its own memory space, which means it has its own stack, heap, and all other
+                segments of memory. One process does not have access to another process's address space. This is
+                important for what comes later.
+            </p>
+            <p>
+                When you run a program, the operating system creates a processes, and starts your program with the
+                <span class="highlight">main()</span> function. Now, if the operating system can create new processes,
+                why can't you? Well, it turns out you can! This can be achieved with the system call <span
+                    class="highlight">fork()</span>. <span class="highlight">fork()</span>
+                takes no parameters, and its functionality is simple: it creates an exact copy of the process from which
+                it was called. This includes the stack, the heap, and any additional associated data. Now, it should be
+                noted that modern implementations of <span class="highlight">fork()</span> don't create a full copy, but
+                rather use a technique called
+                <i>copy-on-write</i>, but this is beyond the scope of this document. For all intents and purposes, you
+                can
+                consider the new process as having its own complete copy of the address space.
+            </p>
+            <p>
+                When a process is successfully created, the new process is called the <i>child</i> process, and the
+                original process is called the <i>parent</i> process.
+            </p>
+            <p>
+                A call to <span class="highlight">int pid = fork();</span> can end in the following situations:
+            </p>
+            <ul>
+                <li><span class="highlight">pid &lt 0</span>: An error has occurred, and no process has been created.
+                </li>
+                <li>
+                    <span class="highlight">pid &gt= 0</span>: A process has been created.
+                </li>
+                <ul>
+                    <li>if <span class="highlight">pid &gt 0</span>, then the current process is the parent process, and
+                        the PID of the child process is stored in <span class="highlight">pid</span>.</li>
+                    <li>if <span class="highlight">pid == 0</span>, then the current process is the child process.</li>
+                </ul>
+            </ul>
+            <p>
+                The following snippet of code describes the behavior:
+            </p>
+            <pre><code>int pid = fork();
+
+if (pid &lt 0) {
+    fprintf(stderr, "An error occurred!\n");
+    return EXIT_FAILURE;
+} else if (pid &gt 0) {
+    printf("This is the parent process, and the child process's PID is %d.\n", pid);
+} else {
+    // pid == 0
+    printf("This is the child process.\n");
+}</code></pre>
+            <p>If the above code is run, either it will print "An error occurred!", or it will print one of the
+                following:</p>
+            <pre><code>This is the parent process, and the child process's PID is &ltchild PID&gt.
+This is the child process.</code></pre>
+            <pre><code>This is the child process.
+This is the parent process, and the child process's PID is &ltchild PID&gt.</code></pre>
+            <p>
+                Huh? Why could it be either order? That's because, once the child process is created, there is no
+                guarantee which will run first, the parent or the child. Don't believe me? Try it! Compile it to some
+                program. Say the program is called <span class="highlight">fork_test</span>. Execute the following in
+                Bash:
+            </p>
+            <pre><code>for _ in {1..100}; do
+    echo "---------------------------------------------";
+    ./fork_test;
+done</code></pre>
+            <p>
+                Chances are, you will see each of the two orders at least once, and if nothing goes wrong, you will
+                never see the error message.
+            </p>
+            <p>
+                Now, there is one thing we have seen that remains shared between the parent and the child, and that is
+                file descriptors. If the parent opens a file descriptor before calling <span
+                    class="highlight">fork</span>, after the call to <span class="highlight">fork</span> the child will
+                have access to the opened file. This can lead to some fun synchronicity issues, and must be taken into
+                account. What happens if the parent and child processes both read from the file at the same time? Write
+                yourself a test program to see what happens.
+            </p>
+            <p>
+                But wait, there's more! There's a bit of a problem that can occur in the above program snippet. That
+                problem arises from one simple fact. When a <i>parent</i> process dies, all its <i>child</i> processes
+                will be killed as well. So, if the <i>parent</i> prints its piece first, and then exits before the
+                child, there's a (admittedly slim) chance that the child process may never print its piece. To avoid
+                this, we can have the parent process <span class="highlight">wait()</span> on the child process to
+                complete. We can do this as follows. Much of the code is duplicated from above:
+            </p>
+            <pre><code>int pid = fork();
+
+if (pid &lt 0) {
+    fprintf(stderr, "An error occurred!\n");
+} else if (pid &gt 0) {
+    printf("This is the parent process, and the child process's PID is %d.\n", pid);
+    return EXIT_FAILURE;
+} else {
+    // pid == 0
+    printf("This is the child process.\n");
+    return EXIT_SUCCESS;
+}
+
+int status;
+if (wait(&status) &lt 0) {
+    fprintf(stderr, "Failed to wait on the child process.\n");
+    return EXIT_FAILURE;
+}
+
+printf("Child process exited with status code %d.\n", WEXITSTATUS(status));
+
+return EXIT_SUCCESS;
+</code></pre>
+            <p>
+                The following changes were made:
+            </p>
+            <ol>
+                <li>The child process explicitly exits with a successful status after it prints its piece.</li>
+                <li>The parent process continues execution outside of the if-statement block.</li>
+                <li>The parent waits on the child process to return, capturing its exit status.</li>
+                <li>The parent prints the exit status of the child.</li>
+            </ol>
+            <p>There are a few more pieces here. <span class="highlight">wait()</span> takes a pointer to an integer,
+                which it fills with the return status of the child process which exits. We then must call <span
+                    class="highlight">WEXITSTTATUS(status)</span> to get the actual numeric return code from the
+                returned integer. Furthermore, if the call to <span class="highlight">wait()</span> fails, it will
+                return -1. As long as the call to <span class="highlight">wait()</span> does not fail, the parent
+                process will <i>block</i> until there is a child process to collect. Blocking in this case means that it
+                will pause execution and, well, <i>wait</i>.</p>
+            <p>There are numerous ways in which a software developer might want to use <span>fork()</span> and
+                <span>wait()</span>, and the limit of these uses are your imagination and creativity!</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">AUTHOR</div>
+        <div class="section-contents">
+            <p>Elliot Wasem, <a href="mailto:elliotbielwasem@gmail.com">&ltelliotbielwasem@gmail.com&gt</a></p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <p>SEE ALSO</p>
+        </div>
+        <div class="section-contents">
+            <p>
+                <a href="https://man7.org/linux/man-pages/man2/fork.2.html"><span class="highlight">fork(2)</span></a>,
+                <a href="https://man7.org/linux/man-pages/man2/wait.2.html"><span class="highlight">wait(2)</span></a>,
+                <a href="../index.html"><span class="highlight">HOME(1)</span></a>,
+                <a href="manpage_table_of_contents.html"><span class="highlight">Table of Contents</span></a>
+            </p>
+        </div>
+    </div>
+    <div class="header-footer">
+        <div class="header-footer-left">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+        <div class="header-footer-middle">
+            <p>
+                May 4, 2023
+            </p>
+        </div>
+        <div class="header-footer-right">
+            <p>
+                Elliot(8)
+            </p>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
